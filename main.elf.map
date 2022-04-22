@@ -421,6 +421,7 @@
  0002:8009773C       PPCDisableSpeculation
  0002:80097764       PPCSetFpNonIEEEMode
  0002:8009776C       __OSFPRInit
+ 0002:80097894       OSGetConsoleType
  0002:800978BC       InquiryCallback
  0002:800978F8       OSInit
  0002:80097DD8       OSExceptionInit
@@ -497,6 +498,7 @@
  0002:8009B7D8       OSEnableInterrupts
  0002:8009B7EC       OSRestoreInterrupts
  0002:8009B810       __OSSetInterruptHandler
+ 0002:8009B82C       __OSGetInterruptHandler
  0002:8009B840       __OSInterruptInit
  0002:8009B8B4       SetInterruptMask
  0002:8009BB8C       __OSMaskInterrupts
@@ -686,6 +688,7 @@
  0002:800A8730       VIGetRetraceCount
  0002:800A8774       getCurrentFieldEvenOdd
  0002:800A87DC       VIGetNextField
+ 0002:800A8878       VIGetCurrentLine
  0002:800A8910       VIGetTvFormat
  0002:800A895C       def_800A8944
  0002:800A8978       VIGetDTVStatus
@@ -984,72 +987,326 @@
  0002:800BECBC       CARDDeleteAsync
  0002:800BEDCC       CARDDelete
  0002:800BF00C       CARDGetStatus
+ 0002:800BF3A0       SetExiInterruptMask
  0002:800BF494       EXIImm
+ 0002:800BF6F0       EXIImmEx
+ 0002:800BF790       EXIDma
  0002:800BF87C       EXISync
+ 0002:800BFAC8       EXIClearInterrupts
+ 0002:800BFB10       EXISetExiCallback
  0002:800BFB8C       __EXIProbe
  0002:800BFD00       EXIProbe
+ 0002:800BFE34       EXIAttach
+ 0002:800BFF40       EXIDetach
  0002:800BFFFC       EXISelect
  0002:800C0128       EXIDeselect
  0002:800C0300       TCIntrruptHandler
  0002:800C0518       EXTIntrruptHandler
  0002:800C05E8       EXIInit
+ 0002:800C07BC       EXILock
+ 0002:800C08B0       EXIUnlock
+ 0002:800C09A4       UnlockedHandler
  0002:800C09CC       EXIGetID
+ 0002:800C0D7C       ProbeBarnacle
  0002:800C0F08       __OSEnableBarnacle
+ 0002:800C10C4       InitializeUART
+ 0002:800C1134       WriteUARTN
+ 0002:800C1334       SIBusy
+ 0002:800C1354       SIIsChanBusy
+ 0002:800C1390       CompleteTransfer
+ 0002:800C168C       SIInterruptHandler
+ 0002:800C19D0       SIEnablePollingInterrupt
+ 0002:800C1A68       SIRegisterPollingHandler
+ 0002:800C1B34       SIUnregisterPollingHandler
  0002:800C1C28       SIInit
+ 0002:800C1CDC       __SITransfer
+ 0002:800C1EE8       SIGetStatus
  0002:800C1F64       SISetCommand
  0002:800C1F78       SITransferCommands
+ 0002:800C1F88       SISetXY
  0002:800C1FF4       SIEnablePolling
  0002:800C2090       SIDisablePolling
+ 0002:800C20FC       SIGetResponseRaw
  0002:800C21D0       SIGetResponse
+ 0002:800C2294       AlarmHandler_0
+ 0002:800C2320       SITransfer
+ 0002:800C248C       GetTypeCallback
  0002:800C2724       SIGetType
  0002:800C28E8       SIGetTypeAsync
+ 0002:800C2A24       SIDecodeType
+ 0002:800C2B70       SIProbe
+ 0002:800C2B94       SIGetTypeString
  0002:800C2CEC       SISetSamplingRate
  0002:800C2DD0       SIRefreshSamplingRate
+ 0002:800CA864       seqGetPrivateId
+ 0002:800CA8CC       seqStartPlay
+ 0002:800CB3FC       seqPause
+ 0002:800CB678       seqStop
+ 0002:800CB928       seqKillInstancesByGroupID
+ 0002:800CB9B8       seqSpeed
+ 0002:800CBA9C       seqContinue
+ 0002:800CBBA4       seqMute
+ 0002:800CBC60       seqVolume
  0002:800CD184       def_800CD054
+ 0002:800CDC6C       seqHandle
+ 0002:800CE688       seqInit
+ 0002:800CE874       synthGetTicksPerSecond
+ 0002:800CE920       do_voice_portamento
+ 0002:800CEBC0       StartLayer
+ 0002:800CF1DC       synthStartSound
+ 0002:800CF63C       LowPrecisionHandler
+ 0002:800CFD80       ZeroOffsetHandler
+ 0002:800D0530       synthAddJob
+ 0002:800D0750       synthHandle
+ 0002:800D0C60       synthFXGetMaxVoices
+ 0002:800D0C94       synthFXStart
+ 0002:800D0D68       synthCheckFXRealloc
+ 0002:800D0DE4       synthFXSetCtrl
+ 0002:800D0EC8       synthFXSetCtrl14
+ 0002:800D1030       synthSendKeyOff
+ 0002:800D10B8       synthVolume
+ 0002:800D1664       synthHWMessageHandler
+ 0002:800D1734       synthInit
+ 0002:800D1CA8       synthExit
+ 0002:800D1CCC       sndSeqGetValid
+ 0002:800D1CFC       sndSeqPause
+ 0002:800D1D34       sndSeqStop
+ 0002:800D1D6C       sndSeqSpeed
+ 0002:800D1DB4       sndSeqContinue
+ 0002:800D1DEC       sndSeqMute
+ 0002:800D1E44       sndSeqVolume
+ 0002:800D1EAC       sndSeqGetMidiCtrl
+ 0002:800D1F30       seqGetMIDIPriority
  0002:800D1F4C       sndFXCtrl
+ 0002:800D1FAC       sndFXCtrl14
+ 0002:800D200C       sndFXKeyOff
+ 0002:800D204C       sndFXStartParaInfo
  0002:800D212C       sndFXCheck
  0002:800D216C       sndSendMessage
  0002:800D21BC       sndVolume
+ 0002:800D221C       sndMasterVolume
  0002:800D22B0       sndOutputMode
  0002:800D239C       sndSetAuxProcessingCallbacks
- 0002:800D2EE8       nullsub_14
+ 0002:800D24F4       streamInit
+ 0002:800D25B0       SetHWMix
+ 0002:800D263C       streamHandle
+ 0002:800D2EE8       streamCorrectLoops
+ 0002:800D2EEC       streamKill
+ 0002:800D2F70       GetPrivateIndex
  0002:800D30D0       sndStreamARAMUpdate
+ 0002:800D33B4       CheckOutputMode
+ 0002:800D33E8       SetupVolumeAndPan
+ 0002:800D342C       streamOutputModeChanged
+ 0002:800D355C       sndStreamAllocEx
+ 0002:800D39B4       sndStreamAllocLength
  0002:800D39F8       sndStreamADPCMParameter
  0002:800D40F4       sndStreamMixParameterEx
  0002:800D4650       sndStreamFrq
+ 0002:800D4CB8       sndStreamFree
  0002:800D538C       sndStreamActivate
  0002:800D59E4       sndStreamDeactivate
+ 0002:800D60F8       dataInsertKeymap
+ 0002:800D62E8       dataRemoveKeymap
+ 0002:800D6464       dataInsertLayer
+ 0002:800D66AC       dataRemoveLayer
+ 0002:800D6870       dataInsertCurve
+ 0002:800D6A74       dataRemoveCurve
+ 0002:800D6BF0       dataInsertSDir
+ 0002:800D6D78       dataRemoveSDir
+ 0002:800D7040       dataAddSampleReference
+ 0002:800D711C       dataRemoveSampleReference
+ 0002:800D71B8       dataInsertFX
+ 0002:800D72D4       dataRemoveFX
+ 0002:800D7430       dataInsertMacro
+ 0002:800D7734       dataRemoveMacro
+ 0002:800D79C8       dataGetMacro
+ 0002:800D7BF8       dataGetKeymap
+ 0002:800D7D8C       dataInit
+ 0002:800D7E70       dataExit
+ 0002:800D8180       mcmdGosub
  0002:800DAF04       macPostMessage
  0002:800DC2D4       def_800DB644
+ 0002:800DC444       macSampleEndNotify
+ 0002:800DC6E8       TimeQueueAdd
+ 0002:800DC894       macMakeInactive
+ 0002:800DC990       macStart
+ 0002:800DCDC8       macInit
+ 0002:800DCE30       vidInit
+ 0002:800DCF10       vidRemoveVoiceReferences
+ 0002:800DD260       vidMakeRoot
+ 0002:800DD274       vidMakeNew
+ 0002:800DD378       vidGetInternalId
+ 0002:800DD3C8       voiceSetPriority
+ 0002:800DD614       voiceAllocateFind
+ 0002:800DD99C       voiceAllocate
+ 0002:800DDAAC       voiceAllocatePeek
+ 0002:800DDB24       voiceFree
+ 0002:800DDCE8       synthInitAllocationAids
+ 0002:800DDF88       voiceBlock
+ 0002:800DE14C       voiceUnblock
+ 0002:800DE364       voiceKill
+ 0002:800DE598       voiceKillSound
+ 0002:800DE65C       synthKillVoicesByMacroReferences
+ 0002:800DE7B8       synthKillVoicesBySampleReferences
+ 0002:800DE914       voiceIsLastStarted
+ 0002:800DE988       voiceSetLastStarted
+ 0002:800DE9DC       voiceResetLastStarted
+ 0002:800DEA50       voiceInitLastStarted
+ 0002:800DEB94       sndPitchUpOne
+ 0002:800DEBD0       sndGetPitch
+ 0002:800DECB4       adsrConvertTimeCents
+ 0002:800DED0C       salChangeADSRState
  0002:800DEF78       adsrSetup
+ 0002:800DEFA0       adsrStartRelease
+ 0002:800DF0F0       adsrRelease
+ 0002:800DF258       adsrHandle
+ 0002:800DF3F0       adsrHandleLowPrecision
+ 0002:800DF474       vsInit
+ 0002:800DF530       vsSampleStartNotify
+ 0002:800DF778       vsSampleEndNotify
+ 0002:800DF820       vsUpdateBuffer
+ 0002:800DFA18       vsSampleUpdates
+ 0002:800DFC28       dataInitStack
+ 0002:800DFC68       dataARAMDefaultGetInfo
+ 0002:800DFC78       InsertData
  0002:800DFF04       sndPushGroup
  0002:800E0250       sndPopGroup
+ 0002:800E05A0       seqPlaySong
+ 0002:800E06F4       sndSeqPlayEx
  0002:800E0818       salInitDspCtrl
+ 0002:800E0BCC       salInitHRTFBuffer
+ 0002:800E0C04       salExitDspCtrl
+ 0002:800E0CE4       salActivateStudio
+ 0002:800E0E34       salCheckVolErrorAndResetDelta
+ 0002:800E0F28       sal_setup_dspvol
+ 0002:800E0F70       sal_update_hostplayinfo
+ 0002:800E0FE4       DoDepopFade
  0002:800E1090       HandleDepopVoice
  0002:800E139C       SortVoices
  0002:800E15F4       salBuildCommandList
  0002:800E3B50       salSynthSendMessage
+ 0002:800E3B94       salActivateVoice
  0002:800E3C34       salDeactivateVoice
+ 0002:800E3C94       salHandleAuxProcessing
+ 0002:800E3DEC       salCalcVolume
+ 0002:800E44DC       CalcEmitter
  0002:800E4B38       sndUpdateEmitter
  0002:800E4C10       sndCheckEmitter
+ 0002:800E4C30       AddEmitter
+ 0002:800E5064       sndAddEmitterParaEx
+ 0002:800E50B4       sndRemoveEmitter
+ 0002:800E515C       sndEmitterVoiceID
+ 0002:800E51B8       s3dKillEmitterByFXID
+ 0002:800E52B4       sndUpdateListener
+ 0002:800E5428       sndAddListenerEx
  0002:800E5648       sndRemoveListener
- 0002:800E6710       nullsub_5
+ 0002:800E56C4       AddStartingEmitter
+ 0002:800E5818       StartContinousEmitters
+ 0002:800E6024       s3dHandle
+ 0002:800E66D8       s3dInit
+ 0002:800E6710       s3dExit
  0002:800E6714       sndInit
  0002:800E6834       sndQuit
  0002:800E6868       sndIsInstalled
+ 0002:800E6870       salApplyMatrix
+ 0002:800E691C       salNormalizeVector
+ 0002:800E69D0       salCrossProduct
+ 0002:800E6A34       salInvertMatrix
+ 0002:800E727C       inpSetMidiCtrl
+ 0002:800E79AC       inpGetMidiCtrl
+ 0002:800E7F34       _GetInputValue
+ 0002:800E83D4       inpGetVolume
+ 0002:800E841C       inpGetPanning
+ 0002:800E8464       inpGetSurPanning
+ 0002:800E84AC       inpGetPitchBend
+ 0002:800E84F4       inpGetDoppler
+ 0002:800E853C       inpGetModulation
+ 0002:800E85CC       inpGetPreAuxA
+ 0002:800E8614       inpGetReverb
+ 0002:800E865C       inpGetPreAuxB
+ 0002:800E86A4       inpGetPostAuxB
+ 0002:800E86EC       inpGetTremolo
+ 0002:800E8734       inpGetFilterSwitch
+ 0002:800E877C       inpGetFilterParameter
+ 0002:800E87C4       inpGetAuxA
+ 0002:800E8878       inpGetAuxB
+ 0002:800E892C       inpInit
+ 0002:800E8BE0       inpTranslateExCtrl
+ 0002:800E8C50       inpGetExCtrl
  0002:800E8CCC       def_800E8C84
+ 0002:800E8D4C       inpSetExCtrl
  0002:800E8E00       def_800E8DB8
+ 0002:800E8F30       sndRand
+ 0002:800E8F4C       sndSin
+ 0002:800E8FD8       sndBSearch
+ 0002:800E907C       sndSqrt
+ 0002:800E90D0       sndCos
+ 0002:800E91A4       sndConvertMs
+ 0002:800E91B4       sndConvertTicks
+ 0002:800E91FC       sndConvert2Ms
  0002:800E9204       snd_handle_irq
  0002:800E9358       hwInit
- 0002:800EA044       nullsub_11
- 0002:800EA220       nullsub_13
+ 0002:800E941C       hwExit
+ 0002:800E9450       hwSetTimeOffset
+ 0002:800E9458       hwGetTimeOffset
+ 0002:800E9460       hwIsActive
+ 0002:800E9480       hwSetMesgCallback
+ 0002:800E9488       hwSetPriority
+ 0002:800E949C       hwInitSamplePlayback
+ 0002:800E9650       hwBreak
+ 0002:800E96A0       hwSetADSR
+ 0002:800E984C       hwSetVirtualSampleLoopBuffer
+ 0002:800E986C       hwGetVirtualSampleState
+ 0002:800E9880       hwGetSampleType
+ 0002:800E9894       hwGetSampleID
+ 0002:800E98A8       hwSetStreamLoopPS
+ 0002:800E98BC       hwStart
+ 0002:800E98F8       hwKeyOff
+ 0002:800E9920       hwSetPitch
+ 0002:800E9998       hwSetSRCType
+ 0002:800E99C4       hwSetPolyPhaseFilter
+ 0002:800E99F0       hwLowPassFrqToCoef
+ 0002:800E9AE8       hwSetFilter
+ 0002:800E9B68       hwSetITDMode
+ 0002:800E9BC4       hwSetVolume
+ 0002:800E9E84       hwSetAUXProcessingCallbacks
+ 0002:800E9EAC       hwGetPos
+ 0002:800E9F50       hwFlushStream
+ 0002:800E9FE0       hwInitStream
+ 0002:800EA000       hwExitStream
+ 0002:800EA020       hwGetStreamPlayBuffer
+ 0002:800EA044       hwTransAddr
+ 0002:800EA048       hwFrq2Pitch
+ 0002:800EA0A4       hwInitSampleMem
+ 0002:800EA0C8       hwExitSampleMem
+ 0002:800EA0E8       hwSaveSample
+ 0002:800EA17C       hwRemoveSample
+ 0002:800EA200       hwSyncSampleMem
+ 0002:800EA220       hwFrameDone
  0002:800EA224       sndSetHooks
+ 0002:800EA238       hwDisableHRTF
  0002:800EA244       hwEnableCompressor
- 0002:800EA810       nullsub_6
+ 0002:800EA250       hwGetVirtualSampleID
+ 0002:800EA278       hwVoiceInStartup
+ 0002:800EA298       aramQueueCallback
+ 0002:800EA338       aramUploadData
+ 0002:800EA514       aramSyncTransferQueue
+ 0002:800EA52C       aramInit
+ 0002:800EA810       aramExit
  0002:800EA814       aramGetZeroBuffer
+ 0002:800EA834       aramGetFirstUserAddress
+ 0002:800EA858       aramStoreData
+ 0002:800EAC34       aramRemoveData
+ 0002:800EAC4C       InitStreamBuffers
+ 0002:800EAD10       aramAllocateStreamBuffer
+ 0002:800EAE48       aramGetStreamBufferAddress
+ 0002:800EAE80       aramFreeStreamBuffer
  0002:800EB094       salInitAi
  0002:800EB15C       salStartAi
+ 0002:800EB17C       salExitAi
+ 0002:800EB1B0       salAiGetDest
  0002:800EB1E0       salInitDsp
+ 0002:800EB29C       salExitDsp
  0002:800EB2D0       salCtrlDsp
  0002:800EB344       salGetStartDelay
  0002:800EB390       hwInitIrq
@@ -1110,6 +1367,8 @@
  0002:800EE298       _savegpr_25
  0002:800EE29C       _savegpr_26
  0002:800EE2A0       _savegpr_27
+ 0002:800EE2B8       _restgpr_14
+ 0002:800EE2C0       _restgpr_16
  0002:800EE2C4       _restgpr_17
  0002:800EE2C8       _restgpr_18
  0002:800EE2CC       _restgpr_19
@@ -1177,6 +1436,7 @@
  0002:800F265C       memcmp
  0002:800F26A8       __memrchr
  0002:800F26D4       memchr
+ 0002:800F2700       memmove
  0002:800F2AAC       __stdio_atexit
  0002:800F2ABC       HuDataDVDdirDirectOpen
  0002:800F2C88       vprintf
@@ -1211,6 +1471,7 @@
  0002:800F8954       modf
  0002:800F8A50       sin
  0002:800F8B28       tan
+ 0002:800F8C20       fmod
  0002:800F8C80       pow
  0002:800F8D78       sinf
  0002:800F8D9C       cosf
@@ -1409,9 +1670,11 @@
  0002:80213998       j_C_VECReflect
  0002:802139A0       j_PSMTXRotRad
  0002:802139A4       j_PSMTXRotAxisRad
+ 0002:802139FC       j_SIGetTypeString
  0002:80213A00       j_OSCheckActiveThreads
  0002:80213A20       j_GXWaitDrawDone
  0008:80216360       ClampRegion
+ 0008:80216550       sqrtConsts
  0008:80216678       aStdExceptionSt_0
  0008:8021669C       aStdBadAlloc
  0008:802166AC       aStdException_0
@@ -2517,6 +2780,7 @@
  0009:8023F54C       aStreamHanger
  0009:8023F55C       aIsDolViewer
  0009:8023F570       aDolphinSdkSiRe
+ 0009:8023F5B4       Si
  0009:8023F5D8       aNoResponse
  0009:8023F5E4       aN64Controller
  0009:8023F5F4       aN64Microphone
@@ -2534,6 +2798,7 @@
  0009:802423E0       jpt_800E8C04
  0009:80242404       jpt_800E8C84
  0009:80242428       jpt_800E8DB8
+ 0009:80242450       sndSintab
  0009:80244B50       rsmpTab12khz
  0009:8024535C       _Q23std9bad_alloc::`vtbl'
  0009:8024536C       _Q23std9exception::`vtbl'
@@ -2700,8 +2965,28 @@
  0003:80288DFC       __savedGXdata
  0003:802893B0       __CARDBlock
  0003:802895D0       __CARDDiskNone
+ 0003:802895F0       Ecb
+ 0003:80289730       Alarm
+ 0003:802897D0       TypeTime
+ 0003:80289850       RDSTHandler
+ 0003:80297230       seqMIDIPriority
+ 0003:80297570       synthInfo
+ 0003:80298014       inpAuxB
+ 0003:80298494       inpAuxA
+ 0003:80298918       streamInfo
+ 0003:802A4870       vidList
+ 0003:802A5070       voicePrioSortVoices
+ 0003:802A5170       voicePrioSortVoicesRoot
+ 0003:802A5270       voicePrioSortRootList
+ 0003:802A5670       voiceList
+ 0003:802A5770       synth_last_fxstarted
+ 0003:802A57B0       synth_last_started
+ 0003:802A6180       gsDefault
  0003:802A6798       dspStudio
  0003:802A6D78       voices_591
+ 0003:802A6E78       tmp_em_515
+ 0003:802A80C8       inpGlobalMIDIDirtyFlags
+ 0003:802AEEC8       aramQueueLo
  0003:802B1840       fragmentinfo
  0003:802B3684       gTRKFramingState
  0003:802B3698       gTRKDispatchTableSize
@@ -2808,6 +3093,8 @@
  0003:802BFAE8       next
  0003:802BFB04       aBusy
  0003:802BFB0C       aUnknown
+ 0003:802BFB18       last_rnd
+ 0003:802BFB28       dspCoefSel_442
  0003:802BFB58       fragmentID
  0003:802BFB99       a14
  0003:802BFBC0       aEye1
@@ -3092,6 +3379,30 @@
  0003:802C0908       __GXOverflowCount
  0003:802C0918       DrawDone
  0003:802C091C       FinishQueue
+ 0003:802C0940       Chan
+ 0003:802C0944       Dev
+ 0003:802C0948       Enabled
+ 0003:802C094C       BarnacleEnabled
+ 0003:802C0AB8       sndActive
+ 0003:802C0AE4       synthFlags
+ 0003:802C0AE8       synthVoice
+ 0003:802C0AF0       synthIdleWaitActive
+ 0003:802C0AF8       synthRealTime
+ 0003:802C0B00       nextPublicID
+ 0003:802C0B58       macRealTime
+ 0003:802C0B60       macTimeQueueRoot
+ 0003:802C0B64       macActiveMacroRoot
+ 0003:802C0B70       vidFree
+ 0003:802C0B74       vidRoot
+ 0003:802C0B78       vidCurrentId
+ 0003:802C0B7C       voicePrioSortRootListRoot
+ 0003:802C0B7E       voiceMusicRunning
+ 0003:802C0B7F       voiceFxRunning
+ 0003:802C0B80       voiceListInsert
+ 0003:802C0B81       voiceListRoot
+ 0003:802C0B88       gsNextID
+ 0003:802C0B8C       gsCurrent
+ 0003:802C0B90       gsRoot
  0003:802C0B98       dspARAMZeroBuffer
  0003:802C0B9C       dspCmdLastLoad
  0003:802C0BA0       dspCmdLastBase
@@ -3103,15 +3414,29 @@
  0003:802C0BB8       dspCmdList
  0003:802C0BBC       dspCompressorOn
  0003:802C0BC0       dspHRTFOn
+ 0003:802C0BC4       dspHrtfHistoryBuffer
  0003:802C0BC8       dspSurround
  0003:802C0BCC       dspITDBuffer
  0003:802C0BD0       dspVoice
  0003:802C0BD4       salMessageCallback
+ 0003:802C0BDC       runListNum
+ 0003:802C0BDE       startGroupNum
+ 0003:802C0BDF       s3dUseLegacyLogic
+ 0003:802C0BE0       s3dUseMaxVoices
+ 0003:802C0BE1       snd_max_studios
+ 0003:802C0BE2       snd_base_studio
+ 0003:802C0BE4       snd_used_studios
+ 0003:802C0BE8       s3dListenerRoot
+ 0003:802C0BEC       s3dEmitterRoot
+ 0003:802C0BF0       s3dCallCnt
+ 0003:802C0BF8       salTimeOffset
  0003:802C0BFC       salHooks
  0003:802C0C04       salMaxStudioNum
  0003:802C0C05       salNumVoices
  0003:802C0C06       salAuxFrame
  0003:802C0C07       salFrame
+ 0003:802C0C18       aramUploadCallback
+ 0003:802C0C20       aramTop
  0003:802C0C28       oldState
  0003:802C0C2C       hwIrqLevel
  0003:802C0C34       salLastTick
