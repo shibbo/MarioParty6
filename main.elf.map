@@ -1038,8 +1038,31 @@
  0002:800C2B94       SIGetTypeString
  0002:800C2CEC       SISetSamplingRate
  0002:800C2DD0       SIRefreshSamplingRate
+ 0002:800C2DF4       THPVideoDecode
+ 0002:800C3038       __THPSetupBuffers
+ 0002:800C307C       __THPReadFrameHeader
+ 0002:800C31B8       __THPReadScaneHeader
+ 0002:800C32D4       __THPReadQuantizationTable
+ 0002:800C3690       __THPReadHuffmanTableSpecification
+ 0002:800C3870       __THPHuffGenerateSizeTable
+ 0002:800C3960       __THPHuffGenerateCodeTable
+ 0002:800C39C8       __THPHuffGenerateDecoderTables
+ 0002:800C3B84       __THPRestartDefinition
+ 0002:800C3BD8       __THPPrepBitStream
+ 0002:800C3E24       __THPDecompressYUV
+ 0002:800C3F30       __THPDecompressiMCURow512x448
+ 0002:800C59B8       __THPDecompressiMCURow640x480
+ 0002:800C7444       __THPDecompressiMCURowNxN
+ 0002:800C8EF0       __THPHuffDecodeDCTCompY
+ 0002:800C956C       __THPHuffDecodeDCTCompU
+ 0002:800C9C14       __THPHuffDecodeDCTCompV
+ 0002:800CA2BC       THPInit
+ 0002:800CA334       THPAudioDecode
+ 0002:800CA798       __THPAudioGetNewSample
+ 0002:800CA828       __THPAudioInitialize
  0002:800CA864       seqGetPrivateId
  0002:800CA8CC       seqStartPlay
+ 0002:800CB398       StartPause
  0002:800CB3FC       seqPause
  0002:800CB678       seqStop
  0002:800CB928       seqKillInstancesByGroupID
@@ -1047,24 +1070,38 @@
  0002:800CBA9C       seqContinue
  0002:800CBBA4       seqMute
  0002:800CBC60       seqVolume
+ 0002:800CBE2C       seqCrossFade
+ 0002:800CC984       GenerateNextTrackEvent
+ 0002:800CCB9C       HandleEvent
  0002:800CD184       def_800CD054
+ 0002:800CD65C       InitTrackEvents
+ 0002:800CD7D0       HandleTrackEvents
  0002:800CDC6C       seqHandle
  0002:800CE688       seqInit
+ 0002:800CE830       synthSetBpm
  0002:800CE874       synthGetTicksPerSecond
+ 0002:800CE8A8       synthInitPortamento
  0002:800CE920       do_voice_portamento
  0002:800CEBC0       StartLayer
+ 0002:800CEF80       StartKeymap
  0002:800CF1DC       synthStartSound
  0002:800CF63C       LowPrecisionHandler
  0002:800CFD80       ZeroOffsetHandler
  0002:800D0530       synthAddJob
+ 0002:800D0680       synthStartSynthJobHandling
+ 0002:800D06E4       synthForceLowPrecisionUpdate
+ 0002:800D0728       synthKeyStateUpdate
  0002:800D0750       synthHandle
  0002:800D0C60       synthFXGetMaxVoices
  0002:800D0C94       synthFXStart
  0002:800D0D68       synthCheckFXRealloc
  0002:800D0DE4       synthFXSetCtrl
  0002:800D0EC8       synthFXSetCtrl14
+ 0002:800D0FAC       synthFXCloneMidiSetup
  0002:800D1030       synthSendKeyOff
  0002:800D10B8       synthVolume
+ 0002:800D15E8       synthIsFadeOutActive
+ 0002:800D163C       synthSetMusicVolumeType
  0002:800D1664       synthHWMessageHandler
  0002:800D1734       synthInit
  0002:800D1CA8       synthExit
@@ -1119,15 +1156,69 @@
  0002:800D72D4       dataRemoveFX
  0002:800D7430       dataInsertMacro
  0002:800D7734       dataRemoveMacro
+ 0002:800D79B8       maccmp
  0002:800D79C8       dataGetMacro
+ 0002:800D7A54       smpcmp
+ 0002:800D7A64       dataGetSample
+ 0002:800D7B8C       curvecmp
+ 0002:800D7B9C       dataGetCurve
  0002:800D7BF8       dataGetKeymap
+ 0002:800D7C54       layercmp
+ 0002:800D7C64       dataGetLayer
+ 0002:800D7CE0       fxcmp
+ 0002:800D7CF0       dataGetFX
  0002:800D7D8C       dataInit
  0002:800D7E70       dataExit
+ 0002:800D7E90       mcmdWait
  0002:800D8180       mcmdGosub
+ 0002:800D8250       mcmdLoop
+ 0002:800D83A4       mcmdPlayMacro
+ 0002:800D8530       mcmdAddKey
+ 0002:800D8608       mcmdStartSample
+ 0002:800D8808       mcmdVibrato
+ 0002:800D8984       DoSetPitch
+ 0002:800D8B24       mcmdSetADSR
+ 0002:800D8D7C       mcmdSetADSRFromCtrl
+ 0002:800D8EA8       mcmdSetPitchADSR
+ 0002:800D9124       mcmdSetPanning
+ 0002:800D91C0       mcmdSetSurroundPanning
+ 0002:800D925C       mcmdScaleVolume
+ 0002:800D9390       mcmdEnvelope
+ 0002:800D94C0       mcmdFadeIn
+ 0002:800D95FC       mcmdRandomKey
+ 0002:800D9798       mcmdVolumeSelect
+ 0002:800D989C       mcmdPanningSelect
+ 0002:800D99A0       mcmdPitchWheelSelect
+ 0002:800D9AA4       mcmdModWheelSelect
+ 0002:800D9BA8       mcmdPedalSelect
+ 0002:800D9CAC       mcmdPortamentoSelect
+ 0002:800D9DB0       mcmdReverbSelect
+ 0002:800D9EB4       mcmdPreAuxASelect
+ 0002:800D9FB8       mcmdPreAuxBSelect
+ 0002:800DA0BC       mcmdPostAuxBSelect
+ 0002:800DA1C0       mcmdSurroundPanningSelect
+ 0002:800DA2C4       mcmdDopplerSelect
+ 0002:800DA3C8       mcmdTremoloSelect
+ 0002:800DA4CC       mcmdFilterSwitchSelect
+ 0002:800DA5D0       mcmdFilterParameterSelect
+ 0002:800DA6D4       mcmdAuxAFXSelect
+ 0002:800DA850       mcmdAuxBFXSelect
+ 0002:800DA9CC       mcmdPortamento
+ 0002:800DAB30       varGet
+ 0002:800DAB98       mcmdVarCalculation
+ 0002:800DADB8       mcmdIfVarCompare
  0002:800DAF04       macPostMessage
+ 0002:800DAFC0       mcmdSendMessage
+ 0002:800DB204       mcmdGetVID
+ 0002:800DB284       mcmdSetKeyGroup
+ 0002:800DB360       macHandleActive
  0002:800DC2D4       def_800DB644
+ 0002:800DC2F4       macHandle
  0002:800DC444       macSampleEndNotify
+ 0002:800DC4F0       macSetExternalKeyoff
+ 0002:800DC5E0       macSetPedalState
  0002:800DC6E8       TimeQueueAdd
+ 0002:800DC78C       macMakeActive
  0002:800DC894       macMakeInactive
  0002:800DC990       macStart
  0002:800DCDC8       macInit
@@ -1212,8 +1303,20 @@
  0002:800E691C       salNormalizeVector
  0002:800E69D0       salCrossProduct
  0002:800E6A34       salInvertMatrix
+ 0002:800E6C30       inpSetGlobalMIDIDirtyFlag
+ 0002:800E6C54       inpSetRPNHi
+ 0002:800E6E34       inpSetRPNDec
+ 0002:800E7058       inpSetRPNInc
  0002:800E727C       inpSetMidiCtrl
+ 0002:800E7798       inpSetMidiCtrl14
+ 0002:800E78BC       inpResetMidiCtrl
  0002:800E79AC       inpGetMidiCtrl
+ 0002:800E7C70       inpGetChannelDefaults
+ 0002:800E7CB4       inpResetChannelDefaults
+ 0002:800E7D10       inpAddCtrl
+ 0002:800E7DA8       inpFXCopyCtrl
+ 0002:800E7EBC       inpSetMidiLastNote
+ 0002:800E7EF8       inpGetMidiLastNote
  0002:800E7F34       _GetInputValue
  0002:800E83D4       inpGetVolume
  0002:800E841C       inpGetPanning
@@ -1221,6 +1324,7 @@
  0002:800E84AC       inpGetPitchBend
  0002:800E84F4       inpGetDoppler
  0002:800E853C       inpGetModulation
+ 0002:800E8584       inpGetPedal
  0002:800E85CC       inpGetPreAuxA
  0002:800E8614       inpGetReverb
  0002:800E865C       inpGetPreAuxB
@@ -1368,6 +1472,7 @@
  0002:800EE29C       _savegpr_26
  0002:800EE2A0       _savegpr_27
  0002:800EE2B8       _restgpr_14
+ 0002:800EE2BC       _restgpr_15
  0002:800EE2C0       _restgpr_16
  0002:800EE2C4       _restgpr_17
  0002:800EE2C8       _restgpr_18
@@ -1674,6 +1779,8 @@
  0002:80213A00       j_OSCheckActiveThreads
  0002:80213A20       j_GXWaitDrawDone
  0008:80216360       ClampRegion
+ 0008:80216438       inpColdMIDIDefaults
+ 0008:802164C0       inpWarmMIDIDefaults
  0008:80216550       sqrtConsts
  0008:80216678       aStdExceptionSt_0
  0008:8021669C       aStdBadAlloc
@@ -2794,6 +2901,7 @@
  0009:8023F678       aSteering
  0009:8023F6E8       aSisetsamplingr
  0009:8023F720       jpt_800CD054
+ 0009:8023F770       kf_703
  0009:8023F9F0       jpt_800DB644
  0009:802423E0       jpt_800E8C04
  0009:80242404       jpt_800E8C84
@@ -2969,11 +3077,26 @@
  0003:80289730       Alarm
  0003:802897D0       TypeTime
  0003:80289850       RDSTHandler
+ 0003:802898C0       __THPIDCTWorkspace
+ 0003:802899D8       __THPMCUBuffer
+ 0003:802899F0       seqNote
+ 0003:8028ADF0       seqInstance
  0003:80297230       seqMIDIPriority
+ 0003:80297330       synthTicksPerSecond
  0003:80297570       synthInfo
+ 0003:80297784       synthMasterFader
+ 0003:80297D84       synthTrackVolume
+ 0003:80297FD4       synthGlobalVariable
  0003:80298014       inpAuxB
  0003:80298494       inpAuxA
  0003:80298918       streamInfo
+ 0003:8029A218       dataKeymapTab
+ 0003:8029AA18       dataLayerTab
+ 0003:8029B618       dataCurveTab
+ 0003:8029F618       dataSmpSDirs
+ 0003:8029FC18       dataFXGroups
+ 0003:802A0018       dataMacMainTab
+ 0003:802A0818       dataMacSubTabmem
  0003:802A4870       vidList
  0003:802A5070       voicePrioSortVoices
  0003:802A5170       voicePrioSortVoicesRoot
@@ -2986,6 +3109,9 @@
  0003:802A6D78       voices_591
  0003:802A6E78       tmp_em_515
  0003:802A80C8       inpGlobalMIDIDirtyFlags
+ 0003:802A82C8       midi_ctrl
+ 0003:802AC5C8       inpChannelDefaults
+ 0003:802AEBC8       inpFXChannelDefaults
  0003:802AEEC8       aramQueueLo
  0003:802B1840       fragmentinfo
  0003:802B3684       gTRKFramingState
@@ -3383,15 +3509,42 @@
  0003:802C0944       Dev
  0003:802C0948       Enabled
  0003:802C094C       BarnacleEnabled
+ 0003:802C0A24       __THPHuffmanBits
+ 0003:802C0A28       __THPHuffmanSizeTab
+ 0003:802C0A2C       __THPHuffmanCodeTab
+ 0003:802C0A40       Gbase
+ 0003:802C0A60       Gwid
+ 0003:802C0A84       __THPOldGQR5
+ 0003:802C0A88       __THPOldGQR6
+ 0003:802C0A8C       __THPWorkArea
+ 0003:802C0A90       __THPInfo
+ 0003:802C0A94       __THPInitFlag
+ 0003:802C0A98       seq_next_id
+ 0003:802C0AA0       curSeqId
+ 0003:802C0AA4       noteFree
+ 0003:802C0AA8       cseq
+ 0003:802C0AAC       seqFreeRoot
+ 0003:802C0AB0       seqPausedRoot
+ 0003:802C0AB4       seqActiveRoot
  0003:802C0AB8       sndActive
+ 0003:802C0AE0       synthMasterFaderActiveFlags
  0003:802C0AE4       synthFlags
  0003:802C0AE8       synthVoice
+ 0003:802C0AEC       synthMessageCallback
  0003:802C0AF0       synthIdleWaitActive
  0003:802C0AF8       synthRealTime
  0003:802C0B00       nextPublicID
+ 0003:802C0B40       dataFXGroupNum
+ 0003:802C0B42       dataMacTotal
+ 0003:802C0B44       dataLayerNum
+ 0003:802C0B46       dataKeymapNum
+ 0003:802C0B48       dataCurveNum
+ 0003:802C0B4A       dataSmpSDirNum
+ 0003:802C0B50       cstep_1643
  0003:802C0B58       macRealTime
  0003:802C0B60       macTimeQueueRoot
  0003:802C0B64       macActiveMacroRoot
+ 0003:802C0B68       DebugMacroSteps
  0003:802C0B70       vidFree
  0003:802C0B74       vidRoot
  0003:802C0B78       vidCurrentId
