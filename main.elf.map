@@ -116,7 +116,11 @@
  0002:8000C354       print8
  0002:8000C4B0       printWin
  0002:8000C55C       pfDrawFonts
+ 0002:8000D444       WireDraw
+ 0002:8000D804       HuPrcInit
  0002:8000D818       HuPrcCreate
+ 0002:8000DA00       HuPrcChildLink
+ 0002:8000DA68       HuPrcChildUnlink
  0002:8000DAC0       HuPrcChildCreate
  0002:8000DD3C       HuPrcChildWatch
  0002:8000DD9C       HuPrcCurrentGet
@@ -163,8 +167,14 @@
  0002:8000FF14       HuSprColorSet
  0002:8000FF74       HuSprSpeedSet
  0002:8000FFBC       HuSprBankSet
+ 0002:80010264       HuSprGrpPosSet
+ 0002:800102FC       HuSprGrpCenterSet
+ 0002:80010394       HuSprGrpZRotSet
+ 0002:80010428       HuSprGrpScaleSet
+ 0002:80010578       HuSprGrpDrawNoSet
  0002:80010600       HuSprDrawNoSet
  0002:8001064C       HuSprPriSet
+ 0002:80010694       HuSprGrpScissorSet
  0002:80010E58       HuSprSprBGSet
  0002:80010EB8       AnimDebug
  0002:800110CC       HuSprDispInit
@@ -172,6 +182,7 @@
  0002:800128B4       HuSprTexLoad
  0002:80012B04       def_8001291C
  0002:80014600       LoadHSF
+ 0002:800146B0       ClusterAdjustObject
  0002:80014A9C       SetName
  0002:80015D3C       def_800155F4
  0002:80016B6C       PaletteLoad
@@ -243,16 +254,118 @@
  0002:800268B0       Hu3DModelScaleSet
  0002:800269E8       Hu3DModelAttrSet
  0002:80026A44       Hu3DModelAttrReset
+ 0002:80026BF4       Hu3DModelObjPtrGet
+ 0002:80026CBC       Hu3DModelTPLvlSet
+ 0002:80026DB0       Hu3DModelHiliteMapSet
+ 0002:80026E44       Hu3DModelShadowSet
+ 0002:80026EF0       Hu3DModelShadowReset
+ 0002:80026F9C       Hu3DModelShadowDispOn
+ 0002:80026FCC       Hu3DModelShadowDispOff
+ 0002:80026FFC       Hu3DModelShadowMapSet
+ 0002:80027080       Hu3DModelShadowMapObjSet
+ 0002:800273EC       Hu3DModelAmbSet
+ 0002:8002741C       Hu3DModelHookSet
+ 0002:80027508       Hu3DModelHookReset
+ 0002:800275B4       Hu3DModelHookObjReset
+ 0002:8002769C       Hu3DModelProjectionSet
+ 0002:800276DC       Hu3DModelProjectionReset
+ 0002:8002771C       Hu3DModelHiliteTypeSet
+ 0002:800277D0       Hu3DModelReflectTypeSet
+ 0002:8002789C       Hu3DCameraCreate
+ 0002:800279D0       Hu3DCameraPerspectiveSet
+ 0002:80027A50       Hu3DCameraViewportSet
+ 0002:80027AF0       Hu3DCameraScissorSet
+ 0002:80027B80       Hu3DCameraPosSet
+ 0002:80027C18       Hu3DCameraPosSetV
+ 0002:80027E18       Hu3DCameraKill
  0002:80027E90       Hu3DCameraAllKill
  0002:80027F60       Hu3DCameraSet
+ 0002:8002803C       Hu3DModelCameraInfoSet
+ 0002:800283F4       Hu3DModelCameraCreate
+ 0002:80028478       Hu3DCameraMotionOn
+ 0002:800284C8       Hu3DCameraMotionStart
+ 0002:8002858C       Hu3DCameraMotionOff
+ 0002:800285BC       Hu3DLighInit
+ 0002:80028630       Hu3DGLightCreate
+ 0002:800286D0       Hu3DGLightCreateV
+ 0002:8002880C       Hu3DLLightCreate
+ 0002:800288B4       Hu3DLLightCreateV
+ 0002:80028A64       Hu3DGLightSpotSet
+ 0002:80028AA8       Hu3DLLightSpotSet
+ 0002:80028B10       Hu3DGLightInfinitytSet
+ 0002:80028B58       Hu3DLLightInfinitytSet
+ 0002:80028BC4       Hu3DGLightPointSet
+ 0002:80028C1C       Hu3DLLightPointSet
+ 0002:80028C98       Hu3DGLightKill
+ 0002:80028CB8       Hu3DLLightKill
  0002:80028D70       Hu3DLightAllKill
+ 0002:80028E10       Hu3DGLightColorSet
+ 0002:80028E48       Hu3DLLightColorSet
+ 0002:80028EA4       Hu3DGLightPosSetV
+ 0002:80028F14       Hu3DLLightPosSetV
+ 0002:80028FAC       Hu3DGLightPosSet
+ 0002:8002903C       Hu3DLLightPosSet
+ 0002:800290F4       Hu3DGLightPosAngleSet
+ 0002:80029240       Hu3DLLightPosAngleSet
+ 0002:800293B4       Hu3DGLightPosAimSetV
+ 0002:80029434       Hu3DLLightPosAimSetV
+ 0002:800294DC       Hu3DGLightPosAimSet
+ 0002:800295A0       Hu3DLLightPosAimSet
+ 0002:8002968C       Hu3DGLightStaticSet
+ 0002:800296E0       Hu3DLLightStaticSet
+ 0002:80029850       Hu3DModelLightInfoSet
  0002:80029E8C       Hu3DLightSet
  0002:80029FE4       lightSet
+ 0002:8002A23C       Hu3DReflectMapSet
+ 0002:8002A2A4       Hu3DReflectNoSet
+ 0002:8002A2AC       Hu3DFogSet
  0002:8002A30C       Hu3DFogClear
  0002:8002A380       Hu3DAmbColorSet
+ 0002:8002A3B0       Hu3DShadowCreate
+ 0002:8002A674       Hu3DShadowMultiPosSet
+ 0002:8002A728       Hu3DShadowPosSet
+ 0002:8002A7D8       Hu3DShadowMultiTPLvlSet
+ 0002:8002A854       Hu3DShadowTPLvlSet
+ 0002:8002A8CC       Hu3DShadowMultiSizeSet
+ 0002:8002A988       Hu3DShadowSizeSet
+ 0002:8002AA3C       Hu3DShadowMultiColSet
+ 0002:8002AAB4       Hu3DShadowColSet
  0002:8002AB28       Hu3DShadowExec
+ 0002:8002B8A8       Hu3DProjectionCreate
  0002:8002B9D8       Hu3DProjectionKill
+ 0002:8002BA38       Hu3DProjectionPosSet
+ 0002:8002BAC0       Hu3DProjectionTPLvlSet
+ 0002:8002BAF8       Hu3DMipMapSet
+ 0002:8002C47C       Hu3DMotionInit
+ 0002:8002C4C0       Hu3DMotionCreate
+ 0002:8002C564       Hu3DMotionModelCreate
+ 0002:8002C624       Hu3DMotionKill
  0002:8002C7BC       Hu3DMotionAllKill
+ 0002:8002C95C       Hu3DMotionSet
+ 0002:8002CAA8       Hu3DMotionOverlaySet
+ 0002:8002CAF0       Hu3DMotionOverlayReset
+ 0002:8002CB0C       Hu3DMotionOverlayTimeGet
+ 0002:8002CB24       Hu3DMotionOverlayMaxTimeGet
+ 0002:8002CB64       Hu3DMotionOverlayTimeSet
+ 0002:8002CB98       Hu3DMotionOverlaySpeedSet
+ 0002:8002CBB0       Hu3DMotionOverlayEndCheck
+ 0002:8002CCC0       Hu3DMotionShiftSet
+ 0002:8002CEB0       Hu3DMotionShapeSet
+ 0002:8002CF58       Hu3DMotionShapeIDGet
+ 0002:8002CF70       Hu3DMotionShapeSpeedSet
+ 0002:8002CFCC       Hu3DMotionShapeTimeSet
+ 0002:8002CFE4       Hu3DMotionShapeMaxTimeGet
+ 0002:8002D024       Hu3DMotionShapeStartEndSet
+ 0002:8002D050       Hu3DMotionClusterSet
+ 0002:8002D414       Hu3DMotionTimeSet
+ 0002:8002D530       Hu3DMotionMaxTimeGet
+ 0002:8002D5D4       Hu3DMotionShiftMaxTimeGet
+ 0002:8002D678       Hu3DMotionShiftStartEndSet
+ 0002:8002D6A4       Hu3DMotionMotionMaxTimeGet
+ 0002:8002D730       Hu3DMotionStartEndSet
+ 0002:8002D75C       Hu3DMotionEndCheck
+ 0002:8002D86C       Hu3DMotionSpeedSet
+ 0002:8002D894       Hu3DMotionShiftSpeedSet
  0002:8002DCE0       Hu3DMotionNext
  0002:8002E4C4       Hu3DMotionExec
  0002:8002EAA8       def_8002E730
@@ -273,6 +386,7 @@
  0002:80030854       SearchAttributeIndex
  0002:80031260       Hu3DAnimAllKill
  0002:8003173C       Hu3DAnimExec
+ 0002:8003216C       Hu3DParticleCreate
  0002:800324E0       Hu3DParticleScaleSet
  0002:80032548       Hu3DParticleZRotSet
  0002:800325B0       Hu3DParticleColSet
@@ -284,6 +398,23 @@
  0002:80032780       Hu3DParticleCntSet
  0002:800327B8       Hu3DParticleAnimModeSet
  0002:80032814       particleFunc
+ 0002:800334AC       Hu3DParManInit
+ 0002:800334F4       Hu3DParManCreate
+ 0002:800336C0       Hu3DParManLink
+ 0002:8003383C       Hu3DParManKill
+ 0002:800339C8       Hu3DParManAllKill
+ 0002:80033B88       Hu3DParManPtrGet
+ 0002:80033BA8       Hu3DParManPosSet
+ 0002:80033BE4       Hu3DParManVecSet
+ 0002:80033C20       Hu3DParManRotSet
+ 0002:80033C9C       Hu3DParManAttrSet
+ 0002:80033CDC       Hu3DParManAttrReset
+ 0002:80033D1C       Hu3DParManModelIDGet
+ 0002:80033D50       Hu3DParManTimeLimitSet
+ 0002:80033D88       Hu3DParManVacumeSet
+ 0002:80033DFC       Hu3DParManColorSet
+ 0002:80033ED0       ParManFunc
+ 0002:80034AD8       ParManHook
  0002:80037E90       def_80037CE0
  0002:80038284       def_800380D4
  0002:800384A0       def_800382F0
@@ -331,6 +462,8 @@
  0002:8003B77C       OSPanic
  0002:8003B8CC       HuFaultInitXfbDirectDraw
  0002:8003B9E4       HuFaultSetXfbAddress
+ 0002:8003E130       omDBGSystemKeyCheckSetup
+ 0002:8003E1A4       omDBGSystemKeyCheck
  0002:8003E3E8       omSysPauseEnable
  0002:8003F298       omDLLDBGOut
  0002:8003F2C4       omDLLInit
@@ -343,13 +476,19 @@
  0002:8003F928       omDLLInfoDump
  0002:8003F9F8       omDLLHeaderDump
  0002:8003FB68       frand
+ 0002:8003FC08       frandf
+ 0002:8003FCD4       frandmod
  0002:8003FD80       HuAudInit
+ 0002:8003FF00       HuAudStreamPlay
  0002:8003FF08       HuAudStreamVolSet
  0002:8003FF44       HuAudStreamPauseOn
  0002:8003FF68       HuAudStreamPauseOff
  0002:8003FF8C       HuAudStreamFadeOut
  0002:8003FF90       HuAudAllStop
  0002:8003FFB8       HuAudFadeOut
+ 0002:8003FFF4       HuAudFXPlay
+ 0002:80040038       HuAudFXPlayVol
+ 0002:800400D8       HuAudFXPlayVolPan
  0002:80040348       HuAudFXStop
  0002:80040374       HuAudFXAllStop
  0002:8004039C       HuAudFXFadeOut
@@ -361,18 +500,37 @@
  0002:8004069C       HuAudFXEmiterUpDate
  0002:80040700       HuAudFXListnerKill
  0002:80040720       HuAudFXPauseAll
+ 0002:8004074C       HuAudFXStatusGet
  0002:80040774       HuAudFXPitchSet
+ 0002:800407C8       HuAudFXVolSet
+ 0002:80040820       HuAudSeqPlay
+ 0002:8004087C       HuAudSeqStop
+ 0002:800408C4       HuAudSeqFadeOut
  0002:80040900       HuAudSeqAllFadeOut
  0002:8004095C       HuAudSeqAllStop
+ 0002:80040984       HuAudSeqPauseAll
+ 0002:800409B0       HuAudSeqMidiCtrlGet
+ 0002:80040EC4       HuAudSStreamStop
+ 0002:80040EFC       HuAudSStreamFadeOut
  0002:80040F38       HuAudSStreamAllFadeOut
+ 0002:8004100C       HuAudSStreamPauseAll
  0002:80041058       HuAudSStreamAllStop
  0002:8004107C       HuAudSStreamStatGet
  0002:8004133C       HuAudDllSndGrpSet
  0002:80041660       HuAudSndGrpSet
  0002:800416C0       HuAudSndCommonGrpSet
+ 0002:80041814       HuAudAUXSet
+ 0002:80041874       HuAudAUXVolSet
  0002:80042798       HuSePlay
+ 0002:80042860       InitEnvelope
+ 0002:80042A04       SetEnvelopMtx
  0002:80042C6C       EnvelopeProc
  0002:80042CEC       InitVtxParm
+ 0002:80042D3C       SetEnvelopMain
+ 0002:80042E94       SetEnvelop
+ 0002:80043884       SetMtx
+ 0002:80043E54       SetRevMtx
+ 0002:80043F70       SearchSklenton
  0002:800447B8       nullsub_1
  0002:8004651C       nullsub_12
  0002:80047C70       espInit
@@ -397,8 +555,24 @@
  0002:80048980       ClusterMotionExec
  0002:80048F04       ShapeProc
  0002:80049030       WipeExecAlways
+ 0002:8004C33C       HuWindowInit
+ 0002:8004C3B0       HuWinInit
  0002:8004C5BC       HuWinCreate
  0002:8004D504       HuWinAllKill
+ 0002:8004D864       MesDispFunc
+ 0002:8004E03C       winBGMake
+ 0002:8004E46C       HuWinProc
+ 0002:8004E58C       HuWinDrawMes
+ 0002:8004F8A0       HuWinKeyWait
+ 0002:8004FC60       HuWinChoice
+ 0002:800506FC       HuWinActivePadGet
+ 0002:80050764       HuWinActiveKeyGetX
+ 0002:80050970       HuWinScaleSet
+ 0002:800509DC       HuWinZRotSet
+ 0002:80050A34       HuWinCenterPosSet
+ 0002:80050AE0       HuWinDrawNoSet
+ 0002:80050B34       HuWinScissorSet
+ 0002:80050B98       HuWinPriSet
  0002:800514A4       def_8005149C
  0002:80051640       def_80051638
  0002:800518CC       def_800518B8
@@ -414,6 +588,7 @@
  0002:80052308       HuWinDispOn
  0002:80052398       HuWinComKeyWait
  0002:8005249C       _HuWinComKeySet
+ 0002:80052534       HuWinComKeyGet
  0002:8005274C       HuWinComKeyReset
  0002:8005278C       HuWinMesMaxSizeGet
  0002:80052920       HuWinInsertMesSizeGet
@@ -457,6 +632,24 @@
  0002:8005607C       HuAR_ARAMtoMRAMFileRead
  0002:80056418       ArqCallBackAMFileRead
  0002:8005913C       def_800577DC
+ 0002:800620C0       MapWall
+ 0002:80062274       MapWallCheck
+ 0002:80062384       MapPos
+ 0002:80062628       PolygonRangeCheck
+ 0002:800629B4       DefIfnnerMapCircle
+ 0002:80062E24       CalcPPLength
+ 0002:800633F8       MapIflnnerCalc
+ 0002:800634EC       MapCalcPoint
+ 0002:80063874       AreaCheck
+ 0002:800639BC       MapIflnnerTriangle
+ 0002:80063ED4       MapIflnnerQuadrangle
+ 0002:80064868       GetPolygonCircleMtx
+ 0002:80065490       PrecalcPntToTriangle
+ 0002:800658CC       Hitcheck_Triangle_with_Sphere
+ 0002:800659CC       Hitcheck_Quadrangle_with_Sphere
+ 0002:80065B68       DefSetHitFace
+ 0002:80065BB4       AppendAddXZ
+ 0002:80065D38       CharRotInv
  0002:80065E5C       THPSimpleInit
  0002:80065F80       THPSimpleQuit
  0002:80065FD4       THPSimpleOpen
@@ -484,6 +677,7 @@
  0002:80068DB8       HuTHPStop
  0002:80068DC4       HuTHPClose
  0002:80068DD0       HuTHPRestart
+ 0002:80068DDC       HuTHPEndCheck
  0002:80068E54       HuTHPFrameGet
  0002:80068E5C       HuTHPTotalFrameGet
  0002:80068E7C       HuTHPSetVolume
@@ -492,25 +686,49 @@
  0002:80069248       THPViewSprFunc
  0002:800693DC       THPDecodeFunc
  0002:80069D3C       def_80069B3C
+ 0002:8006A124       _CheckFlag
+ 0002:8006A1C4       _SetFlag
+ 0002:8006A268       _ClearFlag
+ 0002:8006A30C       _InitFlag
  0002:8006A358       SLFileOpen
  0002:8006A498       SLFileCreate
+ 0002:8006A94C       SLCurSlotNoSet
+ 0002:8006A954       SLCurSlotNoGet
+ 0002:8006A95C       SLCurBoxNoSet
+ 0002:8006A968       SLCurBoxNoGet
+ 0002:8006A970       SLSaveFlagSet
+ 0002:8006A998       SLSaveFlagGet
+ 0002:8006B620       SLSave
+ 0002:8006BE88       SLSerialNoSet
+ 0002:8006BEC0       SLSerialNoCheck
+ 0002:8006C5B0       SlotInsMes
  0002:8006C5CC       SLStatSet
  0002:8006C7BC       SLCardMount
  0002:8006C8E8       SLFormat
  0002:8006CD48       SLMessOut
  0002:8006CFC4       def_8006CDE0
+ 0002:8006DC84       HuSoftResetButtonCheck
  0002:8006DCD4       HuDvdErrDispIntFunc
  0002:8006DCFC       HuDvdErrDispInit
  0002:8006DEEC       ToeThreadFunc
  0002:8006DFE0       ToeDispCheck
  0002:8006E0D4       def_8006E050
+ 0002:8006E10C       _HuDvdErrDispXFB
+ 0002:8006E5C0       HuRestartSystem
  0002:800905CC       def_800904B8
  0002:80090838       def_8009069C
  0002:80096A48       def_800967D8
  0002:80096F84       gsapi_ContextActivate
+ 0002:800971C4       heap_Open
+ 0002:800971D4       heap_Close
+ 0002:80097200       heap_Alloc
+ 0002:80097240       heap_Calloc
+ 0002:800972B8       heap_Realloc
+ 0002:80097330       heap_Free
  0002:8009764C       PPCMfmsr
  0002:80097654       PPCMtmsr
  0002:8009765C       PPCMfhid0
+ 0002:80097664       PPCMthid0
  0002:8009766C       PPCMfl2cr
  0002:80097674       PPCMtl2cr
  0002:8009767C       PPCMtdec
@@ -519,6 +737,9 @@
  0002:800976A0       PPCMtmmcr0
  0002:800976A8       PPCMtmmcr1
  0002:800976B0       PPCMtpmc1
+ 0002:800976B8       PPCMtpmc2
+ 0002:800976C0       PPCMtpmc3
+ 0002:800976C8       PPCMtpmc4
  0002:800976D0       PPCMffpscr
  0002:800976F0       PPCMtfpscr
  0002:80097718       PPCMfhid2
@@ -1181,8 +1402,12 @@
  0002:800B8A48       __CARDUnlockedHandler
  0002:800B8ACC       __CARDEnableInterrupt
  0002:800B8B8C       __CARDReadStatus
+ 0002:800B8C7C       __CARDReadVendorID
  0002:800B8D6C       __CARDClearStatus
+ 0002:800B8E18       TimeoutHandler
  0002:800B8EBC       Retry
+ 0002:800B915C       UnlockedCallback
+ 0002:800B926C       __CARDStart
  0002:800B9490       __CARDReadSegment
  0002:800B95C4       __CARDWritePage
  0002:800B9700       __CARDEraseSector
@@ -1195,6 +1420,7 @@
  0002:800B9B68       CARDGetSectorSize
  0002:800B9BEC       __CARDSync
  0002:800B9C84       OnReset_1
+ 0002:800B9CD4       CARDGetFastMode
  0002:800B9CF0       bitrev
  0002:800B9E5C       ReadArrayUnlock
  0002:800B9FA0       DummyLen
@@ -1849,6 +2075,7 @@
  0002:800F4718       parse_format
  0002:800F4810       def_800F47B8
  0002:800F4BD4       def_800F4A20
+ 0002:800F4C1C       qsort
  0002:800F4E3C       strchr
  0002:800F4E6C       strncmp
  0002:800F4EAC       strcmp
@@ -1859,12 +2086,18 @@
  0002:800F5118       __close_console
  0002:800F5120       __write_console
  0002:800F51E4       fwide
+ 0002:800F526C       __ieee754_acos
+ 0002:800F557C       __ieee754_asin
+ 0002:800F57E0       __ieee754_atan2
+ 0002:800F5C8C       __ieee754_fmod
+ 0002:800F5FC8       __ieee754_log
  0002:800F6354       __ieee754_pow
  0002:800F6BE0       __ieee754_rem_pio2
  0002:800F6F80       __kernel_cos
  0002:800F7074       __kernel_rem_pio2
  0002:800F7EC8       __kernel_sin
  0002:800F7F68       __kernel_tan
+ 0002:800F817C       atan
  0002:800F84C0       copysign
  0002:800F84E8       cos
  0002:800F85BC       floor
@@ -1873,41 +2106,89 @@
  0002:800F8954       modf
  0002:800F8A50       sin
  0002:800F8B28       tan
+ 0002:800F8BA0       acos
+ 0002:800F8BC0       asin
  0002:800F8BE0       atan2
  0002:800F8C20       fmod
+ 0002:800F8C40       log
  0002:800F8C80       pow
+ 0002:800F8CA0       floorf
+ 0002:800F8CC4       ceilf
+ 0002:800F8CE8       powf
+ 0002:800F8D0C       logf
+ 0002:800F8D30       expf
  0002:800F8D54       tanf
  0002:800F8D78       sinf
  0002:800F8D9C       cosf
  0002:800F8E08       acosf
  0002:800F8E2C       TRKNubMainLoop
+ 0002:800F8F24       TRKDestructEvent
+ 0002:800F8F48       TRKConstructEvent
+ 0002:800F8F60       TRKPostEvent
  0002:800F9040       TRKGetNextEvent
+ 0002:800F90F4       TRKInitializeEventQueue
  0002:800F914C       TRKNubWelcome
  0002:800F9174       TRKTerminateNub
  0002:800F9198       TRKInitializeNub
  0002:800F92CC       TRKMessageSend
  0002:800F94A8       TRKReadBuffer_ui32
+ 0002:800F9598       TRKReadBuffer_ui8
  0002:800F9630       TRKReadBuffer1_ui64
+ 0002:800F9718       TRKReadBuffer1_ui32
+ 0002:800F97E0       TRKReadBuffer1_ui16
  0002:800F9898       TRKReadBuffer1_ui8
  0002:800F9918       TRKAppendBuffer_ui32
+ 0002:800F99C0       TRKAppendBuffer_ui8
  0002:800F9A28       TRKAppendBuffer1_ui64
+ 0002:800F9AB0       TRKAppendBuffer1_ui32
+ 0002:800F9B14       TRKAppendBuffer1_ui16
+ 0002:800F9B68       TRKReadBuffer
+ 0002:800F9BF4       TRKAppendBuffer
  0002:800F9C98       TRKSetBufferPosition
  0002:800F9CC8       TRKResetBuffer
  0002:800F9D08       TRKReleaseBuffer
+ 0002:800F9D6C       TRKGetBuffer
  0002:800F9D98       TRKGetFreeBuffer
+ 0002:800F9E60       TRKInitializeMessageBuffers
  0002:800F9ED4       TRKTerminateSerialHandler
- 0002:800F9F50       TRKTargetInterrupt
+ 0002:800F9EDC       TRKInitializeSerialHandler
+ 0002:800F9F00       TRKProcessInput
+ 0002:800F9F50       TRKGetInput
  0002:800F9FE8       TRKTestForPacket
  0002:800FA2A0       usr_put_initialize
  0002:800FA2A4       usr_puts_serial
  0002:800FA32C       TRKDispatchMessage
  0002:800FA3B0       TRKInitializeDispatcher
  0002:800FA3C8       TRKDoSetOption
+ 0002:800FA56C       TRKDoStop
+ 0002:800FA66C       TRKDoStep
+ 0002:800FAB9C       TRKDoContinue
+ 0002:800FACF0       TRKDoFlushCache
+ 0002:800FAFE8       TRKDoWriteRegisters
+ 0002:800FB3B0       TRKDoReadRegisters
+ 0002:800FB77C       TRKDoWriteMemory
  0002:800FBADC       def_800FBAB0
+ 0002:800FBB9C       TRKDoReadMemory
  0002:800FBEEC       def_800FBEC0
+ 0002:800FBFAC       TRKDoCPUType
+ 0002:800FC344       TRKDoSupportMask
+ 0002:800FC574       TRKDoVersions
+ 0002:800FC84C       TRKDoReset
+ 0002:800FC904       TRKDoDisconnect
+ 0002:800FC9E8       TRKDoConnect
+ 0002:800FCAA4       TRKDoUnsupported
  0002:800FCB54       TRKStandardACK
  0002:800FCC0C       SetTRKConnected
  0002:800FCC18       GetTRKConnected
+ 0002:800FCC28       HandlePositionFileSupportRequest
+ 0002:800FCDB8       HandleCloseFileSupportRequest
+ 0002:800FCED8       HandleOpenFileSupportRequest
+ 0002:800FD080       TRKRequestSend
+ 0002:800FD224       TRKSuppAccessFile
+ 0002:800FD4E8       TRKReleaseMutex
+ 0002:800FD4F0       TRKAcquireMutex
+ 0002:800FD4F8       TRKInitializeMutex
+ 0002:800FD500       TRKDoNotifyStopped
  0002:800FD5D8       TRK_flush_cache
  0002:800FD610       TRK_fill_mem
  0002:800FD6CC       __TRK_get_MSR
@@ -1917,8 +2198,23 @@
  0002:800FD948       TRKSwapAndGo
  0002:800FDA60       TRKTargetSetInputPendingPtr
  0002:800FDA70       TRKPPCAccessFPRegister
+ 0002:800FDC8C       TRKTargetStop
  0002:800FDCA4       TRKTargetSetStopped
+ 0002:800FDCB4       TRKTargetStopped
+ 0002:800FDCC4       TRKTargetFlushCache
+ 0002:800FDD00       TRKTargetSupportRequest
+ 0002:800FDF08       TRKTargetGetPC
+ 0002:800FDF18       TRKTargetStepOutOfRange
+ 0002:800FDF94       TRKTargetSingleStep
+ 0002:800FE000       TRKTargetAddExceptionInfo
+ 0002:800FE0AC       TRKTargetAddStopInfo
+ 0002:800FE1D0       TRKTargetInterrupt
  0002:800FE32C       TRKPostInterruptEvent
+ 0002:800FE3EC       TRKTargetCPUType
+ 0002:800FE44C       TRKTargetSupportMask
+ 0002:800FE4F0       TRKTargetVersions
+ 0002:800FE514       TRKTargetAccessExtended2
+ 0002:800FE94C       TRKTargetAccessExtended1
  0002:800FEABC       TRKTargetAccessFP
  0002:800FEBF8       TRKTargetAccessDefault
  0002:800FECEC       TRKTargetAccessMemory
@@ -1950,6 +2246,8 @@
  0002:800FF928       TRKTargetContinue
  0002:800FF95C       GetUseSerialIO
  0002:800FF96C       SetUseSerialIO
+ 0002:800FF978       __TRK_write_console
+ 0002:800FFA34       __read_console
  0002:800FFAF0       DBClose
  0002:800FFAF4       DBOpen
  0002:800FFAF8       DBWrite_
@@ -1973,21 +2271,528 @@
  0002:80100594       EXI2_Unreserve
  0002:80100598       AMC_IsStub
  0002:801005A0       Hu_IsStub
+ 0002:801005A8       MICInit
+ 0002:80100694       MICProbeEx
+ 0002:801007A0       MICMountAsync
+ 0002:80100954       MICMount
+ 0002:8010099C       MICUnmount
+ 0002:80100A14       MICGetRingbuffsize
+ 0002:80100B44       MICSetGainAsync
+ 0002:80100C40       MICSetGain
+ 0002:80100C88       MICGetButton
+ 0002:80100D20       MICGetDeviceID
+ 0002:80100DBC       MICStartAsync
+ 0002:80100ED4       MICStart
+ 0002:80100F1C       MICStopAsync
+ 0002:80100FE0       MICStop
+ 0002:80101028       MICGetCurrentTop
+ 0002:801010AC       MICUpdateIndex
+ 0002:80101168       MICGetSamplesLeft
+ 0002:80101220       MICGetSamples
+ 0002:80101328       MICIsActive
+ 0002:80101364       MICIsAttached
+ 0002:801013A0       __MICDoMount
+ 0002:80101518       __MICDoUnmount
+ 0002:801015E0       __MICUnlockedCallback
+ 0002:80101664       __MICMountCallback
+ 0002:80101700       __MICResetCallback
+ 0002:80101768       __MICSync
+ 0002:801017D0       __MICSyncCallback
+ 0002:80101804       __MICExtHandler
+ 0002:801018BC       __MICExiHandler
+ 0002:80101AA0       __MICTxHandler
+ 0002:80101BE8       __MICAlarmCallback
+ 0002:80101D08       __MICTimeoutCallback
+ 0002:80101DE0       __MICRawReset
+ 0002:80101EB8       __MICRawReadStatus
+ 0002:80101FD8       __MICRawWriteStatus
+ 0002:801020C0       __MICRawReadDataAsync
+ 0002:801021B8       __MICGetControlBlock
+ 0002:8010226C       __MICPutControlBlock
+ 0002:801022CC       __MICUpdateStatus
+ 0002:80102528       __MICUpdateButton
+ 0002:801025C8       M2SInit
  0002:80102624       M2SetBuffer
  0002:8010267C       M2SSetActiveChannel
  0002:80102904       M2SSetShifts
+ 0002:80102964       M2SOpen
+ 0002:80102A04       M2SClose
+ 0002:80102A98       M2SStart
+ 0002:80102C18       M2SStop
+ 0002:80102CC8       M2SGetSamples
+ 0002:80102DE0       M2SGetSamplesLeft
+ 0002:80102E84       M2SAdvanceBuffer
+ 0002:80102FC0       __M2SCalibration
+ 0002:80103318       SidInit
+ 0002:80103368       SidIsRecording
+ 0002:80103370       SidClose
+ 0002:801033B8       SidStart
+ 0002:801033F0       SidStop
+ 0002:80103428       SidGetSamples
+ 0002:80103464       SidGetSamplesLeft
+ 0002:801034A8       SidAdvanceBuffer
+ 0002:801034DC       asrspi_cbAbnorm
+ 0002:80103554       asrspi_cbAgc
+ 0002:8010355C       asrspi_cbEnergyLevel
+ 0002:801035D4       asrspi_cbSNRLevel
+ 0002:8010364C       asrspi_cbSpeechDetected
+ 0002:801036C4       asrspi_cbTsDetected
+ 0002:8010373C       asrspi_cbResult
+ 0002:80103CBC       SessionDataExport
+ 0002:80103DB4       SessionDataImport
+ 0002:80103E38       SessionDataFree
+ 0002:80103E84       ContextActivate
+ 0002:80103FC4       ContextActivateParams
+ 0002:80104070       ContextAPIDeActivate
+ 0002:80104084       ContextDeActivate
+ 0002:801040F0       ContextGetAction
+ 0002:80104228       ContextGetParam
+ 0002:80104278       ContextSetActiveWords
+ 0002:80104430       ContextSetParam
+ 0002:801044DC       ContextSetWrdData
+ 0002:801045B0       ContextUnLoad
+ 0002:80104680       ExtAudioInit
+ 0002:801046C0       ExtAudioClose
+ 0002:801046E4       ExtAudioStart
+ 0002:801046F4       ExtAudioStop
+ 0002:80104704       ExtAudioGetSamples
+ 0002:80104740       ExtAudioGetSamplesLeft
+ 0002:80104748       TranslateGsapiParamId2AsrSpiParamId
+ 0002:80104760       ActivateDefaultParams
+ 0002:80104918       InitDefaultParams
+ 0002:801049A4       ProcessAudio
+ 0002:80104B64       RestartEngine
+ 0002:80104C5C       StartListening
+ 0002:80104D1C       StopListening
+ 0002:80104DDC       gsapi_Close
+ 0002:80104F04       gsapi_EngineSetImmediateContext
+ 0002:80105668       gsapi_EngineClose
  0002:80105830       gsapi_EngineOpen
  0002:80105A44       gsapi_EngineSetMode
+ 0002:80105BA4       gsapi_EngineSetParam
+ 0002:80105F24       gsapi_EngineStop
+ 0002:80106224       gsapi_GetResultString
+ 0002:801063D0       gsapi_Init
  0002:80106514       gsapi_LanguageLoadBuffer
- 0002:80106B68       gsapi_NotifySetCallback
+ 0002:80106730       gsapi_LanguageUnLoad
+ 0002:80106C74       logf_check
+ 0002:80106CB0       WrdCreateWordList
+ 0002:80106D74       WrdDestroyWordList
+ 0002:80106DC8       ConvErr
  0002:80107004       def_80106DF0
+ 0002:80107024       ConvParamToSpi
  0002:8010711C       def_80107040
+ 0002:80107130       ASRSPICBABNORM
+ 0002:801071D0       ASRSPICBAGC
+ 0002:80107210       ASRSPICBASKCURRENTGAIN
+ 0002:8010723C       ASRSPICBTRAIN
+ 0002:80107380       ASRSPICBTS
+ 0002:801073C4       ASRSPICBSTARTDET
+ 0002:80107408       ASRSPICBRESULT
+ 0002:801074D4       asrspi_OpenEngine
+ 0002:80107648       asrspi_CloseEngine
+ 0002:8010785C       asrspi_GetState
+ 0002:801078AC       asrspi_ActivateLng
+ 0002:80107BC0       asrspi_ActivateCtx
+ 0002:80107E4C       asrspi_SetParamList
+ 0002:801085A4       asrspi_Start
+ 0002:801087F0       asrspi_Stop
  0002:801089CC       def_801089A8
+ 0002:80108BA8       asrspi_Acquisition
+ 0002:80108D48       asrspi_ExportSessionData
+ 0002:80108F48       asrspi_ActivateSessionData
+ 0002:8010A7CC       CreateSecondPassContext
+ 0002:8010B638       FreeSecondPassContext
+ 0002:8010B860       CountNbrOfPronsInResult_ForChinese
+ 0002:8010B910       Build_Tree_ForChinese
+ 0002:8010C3AC       Calculate_NbrOfStatesInDict_ForChinese
+ 0002:8010C51C       Calculate_NbrOfItems_In_Words_Of_SecPass
+ 0002:8010C5EC       Translate_Prons_Into_Items_And_Tones
+ 0002:8010CBFC       SplitUp_Finals
+ 0002:8010D020       Swap_Finals
+ 0002:8010D3CC       FillOut_Syntax_Statedict_And_Wordprops_ForChinese
+ 0002:8010D6C4       FreeSecondPassContext_ForChinese
+ 0002:8010D7B4       CreateSecondPassContext_ForChinese
+ 0002:8010E07C       putTransWordInDict_0
+ 0002:8010E1FC       putWordInDict_0
+ 0002:8010E4F8       CreateSecondPassTreeContext
+ 0002:8010F4E0       AllocateNodeAndFreePrevious
+ 0002:8010F608       CreateCtxTree
+ 0002:8010F630       AddUserWordToLngSpeechUnitLex
+ 0002:8010F908       AddFollowers
+ 0002:8010FEF8       intCreateCtxTree
+ 0002:801103B8       _FreeTree
+ 0002:801104CC       FreeTree
+ 0002:801105EC       CalcNrNodes
+ 0002:8011075C       CalcNrNodes10
+ 0002:8011097C       CalcAccuracyCtxTree
+ 0002:80110AB0       _CountWordsInTree
+ 0002:80110C24       CompareIDs
+ 0002:80110C34       GetIsolatedWordDpActiveWords
+ 0002:80110EF4       SetIsolatedWordDpActiveWords
+ 0002:8011113C       Build_Tree_ForChinese_TreeCtx
+ 0002:80111F98       Calculate_NbrOfItems_In_Words_Of_SecPass_TreeCtx
+ 0002:80112058       Translate_Prons_Into_Items_And_Tones_TreeCtx
+ 0002:80112F9C       FreeSecondPassContext_ForChinese_TreeCtx
+ 0002:80113074       CreateSecondPassTreeContext_ForChinese
+ 0002:80113860       cbInitArchitectureQueues
+ 0002:80113888       cbRegisterInputQueue
+ 0002:8011389C       cbRegisterOutputQueue
+ 0002:801138FC       cbStateHandler
+ 0002:80113970       cbGainRequest
+ 0002:801139DC       cbAskCurrentGain
+ 0002:80113A44       cbTOSAbnormalCond
+ 0002:80113AC8       casrCreateResult
+ 0002:80114768       casrFreeResult
+ 0002:8011480C       cbTSDetected
+ 0002:80114970       cbTOSRecognised
+ 0002:801149F0       cbIsoWordRecognised
+ 0002:80114EA0       cbSpellRecognised
+ 0002:80114EAC       cbNothingRecognised
+ 0002:80114F48       cbSpellNothingRecognised
+ 0002:80114FE4       cbDoSecondPassIfEnabled
+ 0002:80115140       cbTrain
+ 0002:801151C8       cbGenderDisable
+ 0002:8011522C       casrEnableGenders
+ 0002:801154CC       casrGetLastError
+ 0002:80115520       casrOpen
+ 0002:80115720       casrGetSessionData
+ 0002:80115BBC       casrEnableLabelInQueue
+ 0002:80115C28       casrReadLabelInQueue
+ 0002:80115D2C       casrStop
  0002:80115DA8       def_80115DA4
+ 0002:80115E90       casrSetActiveWords
+ 0002:80115FCC       casrGetActiveWords
+ 0002:80116194       InitParamList
+ 0002:8011628C       casrGetParamNoClearErrorLog
  0002:80116400       def_8011630C
+ 0002:80116428       casrSetParamNoClearErrorLog
  0002:801164A0       def_8011649C
  0002:80116C64       def_801164D8
+ 0002:80116D30       casrGetState
+ 0002:80116EBC       casrImportData
+ 0002:80116F20       casrExportData
+ 0002:80117028       casrActivateData
+ 0002:801175CC       casrCloseData
+ 0002:801175F8       casrImportContext
+ 0002:80117670       casrCloseContext
+ 0002:8011769C       casrActivateContext
+ 0002:80117C74       casrDoSecondPass
+ 0002:80117CE8       casrDoNormalSecondPass
+ 0002:80117ECC       casrDoIsoWordSecondPass
+ 0002:80118104       casrDoSpelling
+ 0002:801186DC       casrInitSampleFormat
+ 0002:801188D4       casrAcquisition
  0002:80118984       def_80118980
+ 0002:80118D48       casrAcknowledge
+ 0002:80118E40       casrInitSegmentation
+ 0002:80118F2C       casrGetSegmStart
+ 0002:80118F44       casrStoreSegmentation
+ 0002:80119834       TrainInit
+ 0002:8011A748       TrainModels
+ 0002:8011A82C       userwordAcknowledge
+ 0002:8011A9D8       cbCancelUserWordTraining
+ 0002:8011AA24       cbUtteranceNotAccepted
+ 0002:8011AA94       cbUtteranceAccepted
+ 0002:8011AB50       cbLastUtteranceAccepted
+ 0002:8011AC10       cbUserWordResultAvailable
+ 0002:8011ACCC       cbScoreUserWordResultAvailable
+ 0002:8011AD1C       ExitUserWordTraining
+ 0002:8011AE08       DoLabelStart
+ 0002:8011AE5C       SendPartOfLabelsToEngine
+ 0002:8011AF44       SendLabelsToEngine
+ 0002:8011B028       DoLabelStop
+ 0002:8011B080       cbDoUserWordTraining
+ 0002:8011B19C       CalcF1
+ 0002:8011B450       FindBestTranscription
+ 0002:8011B748       DoDurationModeling
+ 0002:8011BA78       ScoreTranscriptions
+ 0002:8011C184       CheckConsistency
+ 0002:8011C3A4       RejectTrainUtters
+ 0002:8011C59C       DoUserWordTraining
+ 0002:8011C7AC       ProcessDelayBlock
+ 0002:8011C944       ControlDelayBlock
+ 0002:8011CA28       InitDelayBlock
+ 0002:8011CB14       ConstructDelayBlock
+ 0002:8011CB58       AllocateBacktrace
+ 0002:80127EC4       Actual_DP
+ 0002:80128064       BackTracking
+ 0002:801282FC       Output
+ 0002:801283F8       PostDP
+ 0002:801287F0       FlushPitchDP
+ 0002:801289AC       ProcessPitchDP
+ 0002:80128CA8       PitchDPReset
+ 0002:80128E90       ControlPitchDP
+ 0002:80128F94       InitJumpFactors
+ 0002:801290D4       InitPitchDP
+ 0002:80129440       ConstructPitchDP
+ 0002:80129484       ProcessPitchWindow
+ 0002:801295CC       ControlPitchWindow
+ 0002:8012982C       InitPitchWindow
+ 0002:80129A04       ConstructPitchWindow
+ 0002:80129A48       ProcessStacker
+ 0002:80129B1C       ControlStacker
+ 0002:80129BFC       InitStacker
+ 0002:80129D88       ConstructStacker
+ 0002:80129DCC       ProcessUndersampler
+ 0002:80129EE0       ControlUndersampler
+ 0002:80129F20       InitUndersampler
+ 0002:80129FE0       ConstructUndersampler
+ 0002:8012A024       Reset_0
+ 0002:8012A12C       AcneGetSession
+ 0002:8012A9F0       InitAcne
+ 0002:8012C33C       ProcessMel
+ 0002:8012C4F4       ControlMel
+ 0002:8012CB50       InitMel
+ 0002:8012CBBC       ConstructMel
+ 0002:8012CC00       mtxConstruct
+ 0002:8012CC38       mtxDestruct
+ 0002:8012CC98       imtxConstruct
+ 0002:8012CCD0       imtxDestruct
+ 0002:8012CD30       mtxInit
+ 0002:8012CDD8       imtxInit
+ 0002:8012CE74       mtxInitCopy
+ 0002:8012CF44       imtxDeleteCol
+ 0002:8012CFCC       mtxAssociateAll
+ 0002:8012CFF4       mtxMax
+ 0002:8012D030       mtxCompress
+ 0002:8012D0F4       QrDeleteCol
+ 0002:8012D3FC       QrPreMult
+ 0002:8012D5A4       mtxFillCopy
+ 0002:8012D5D4       mtxFillX
+ 0002:8012D654       smtConstruct
+ 0002:8012D900       smtDestruct
+ 0002:8012D990       Smoothing
+ 0002:8012DCE8       Reset_1
+ 0002:8012DD4C       SpecSubPutSession
+ 0002:8012DE6C       SpecSubGetSession
+ 0002:8012DF6C       SpectralSubtraction
+ 0002:8012E7BC       ProcessSpecSub
+ 0002:8012E870       ControlSpecSub
+ 0002:8012EA28       InitSpecSub
+ 0002:8012ED9C       ConstructSpecSub
+ 0002:8012F138       CheckForAbnormalConditions
+ 0002:8012F378       VadGetSession
+ 0002:8012F72C       nullsub_24
+ 0002:8012F730       VadPutSession
+ 0002:8012FAE0       VadFastTrackProcess
+ 0002:801300EC       Mean
+ 0002:80130174       ProcessVad
+ 0002:8013031C       ControlVad
+ 0002:8013066C       InitVad
+ 0002:80130BD0       ConstructVad
+ 0002:80130C84       InitVq1500Process
+ 0002:80130CE4       LoadCodeBooks
+ 0002:80130E40       GetLabel
+ 0002:80130F88       IdleVq1500Process
+ 0002:80130F8C       Vq1500Process
+ 0002:8013100C       ControlVq1500Process
+ 0002:8013109C       FreeCodeBooks
+ 0002:801310E0       FreeVq1500
+ 0002:80131130       ConstructVq
+ 0002:80131174       WindowFlush
+ 0002:80131538       ProcessWindow
+ 0002:80131AA8       ControlWindow
+ 0002:80131B60       InitWindow
+ 0002:80131D2C       ConstructWindow
+ 0002:80131D70       CombinerInit
+ 0002:80131E98       CombinerProcess
+ 0002:801321E0       CombinerControl
+ 0002:801322CC       ConstructCombiner
+ 0002:80132310       AllocMatrices
+ 0002:801323CC       ResizeQueues
+ 0002:80132544       CopySilProbs
+ 0002:80132D80       DistCalc
+ 0002:8013334C       DistCalc4Bit
+ 0002:8013509C       ProcessGenderFilter
+ 0002:80135120       ControlGenderFilter
+ 0002:80135160       InitGenderFilter
+ 0002:801351F0       ConstructGenderFilter
+ 0002:8013526C       ProcessLookAhead
+ 0002:8013538C       ControlLookAhead
+ 0002:80135404       InitLookAhead
+ 0002:801354D4       ConstructLookAhead
+ 0002:80135518       ProcessMedian
+ 0002:8013580C       ControlMedian
+ 0002:80135874       InitMedian
+ 0002:80135944       ConstructMedian
+ 0002:80135988       MaxFloatInArray
+ 0002:801359C4       StatusProcessing
+ 0002:80135F44       Increment_Normal_ReadPointers
+ 0002:80136020       FlushPitchCombiner
+ 0002:801362A0       ProcessPitchCombiner
+ 0002:801364EC       PitchCombinerReset
+ 0002:8013675C       ControlPitchCombiner
+ 0002:8013685C       InitPitchCombiner
+ 0002:80136D3C       ConstructPitchCombiner
+ 0002:80137A20       ProcessSHS_VUV
+ 0002:80137CB0       ControlSHS_VUV
+ 0002:80137DBC       InitSHS_VUV
+ 0002:80138258       ConstructSHS_VUV
+ 0002:8013829C       SlidingHisto_NewItem
+ 0002:8013838C       SlidingHisto_LowerQuantile
+ 0002:80138454       SlidingHisto_Clear
+ 0002:801384A8       SlidingHisto_Init
+ 0002:8013863C       SlidingHisto_Free
+ 0002:80138698       SlidingHisto_sizeof_SessionData
+ 0002:801386A8       SlidingHisto_PutSession
+ 0002:8013878C       SlidingHisto_GetSession
+ 0002:801387D8       ProcessStationarity
+ 0002:80138980       ControlStationarity
+ 0002:80138A0C       InitStationarity
+ 0002:80138B50       ConstructStationarity
+ 0002:80138B94       Subsampler_Process
+ 0002:80138D04       Subsampler_CheckImpulseResponse
+ 0002:80138EC0       Subsampler_Reset
+ 0002:80138F54       Subsampler_Init
+ 0002:801391CC       Subsampler_Free
+ 0002:8013927C       TriggerLR_FindSpeech
+ 0002:80139960       ProcessTriggerLR
+ 0002:80139B0C       ControlTriggerLR
+ 0002:80139F3C       InitTriggerLR
+ 0002:8013A2FC       ConstructTriggerLR
+ 0002:8013A340       Voicing_AddSignal
+ 0002:8013A418       Voicing_GetLogPowerInFrame
+ 0002:8013A4F4       Voicing_GetMaxVoicing
+ 0002:8013A844       Voicing_Reset
+ 0002:8013A8E4       InitVoicing
+ 0002:8013AB40       Voicing_Free
+ 0002:8013ABB8       _contextCheckDataType
+ 0002:8013ABD0       _contextGetSize
+ 0002:8013ABDC       _contextGetLanguageVersionInfo
+ 0002:8013ABE8       _contextGetTS
+ 0002:8013ABF4       _contextGetAccuracy
+ 0002:8013AC00       _contextGetRejection
+ 0002:8013AC0C       _contextGetGarbage
+ 0002:8013AC18       _contextGetNbrItem
+ 0002:8013AC24       _contextGetNbrWord
+ 0002:8013AC30       _contextGetNbrPron
+ 0002:8013AC3C       _contextGetNbrFollower
+ 0002:8013AC48       _contextGetNbrStartWord
+ 0002:8013AC54       _contextGetNbrStopWord
+ 0002:8013AC60       _contextGetGarbageWordID
+ 0002:8013AC6C       _contextIsSpellingContext
+ 0002:8013AC84       _contextIsIsoWordContext
+ 0002:8013AC9C       _contextGetpLex
+ 0002:8013AD5C       FillContextV2VirtualTable
+ 0002:8013AD88       _langCheckDataType
+ 0002:8013ADA0       _langGetSize
+ 0002:8013ADAC       _langGetVersionInfo
+ 0002:8013ADB8       _langGetNbrCodeBook
+ 0002:8013ADC4       _langGetNbrState
+ 0002:8013ADD0       _langGetNbrPhenome
+ 0002:8013ADE4       _langGetAdaptSilState
+ 0002:8013ADF0       _langGetNbrErgodicStates
+ 0002:8013ADFC       _langGetNbrStateErgodicStates
+ 0002:8013AE08       _langGetNbrErgodicPhenomes
+ 0002:8013AE14       _langGetNbrStateErgodicPhenomes
+ 0002:8013AE20       _langGetNbrNonErgodicPhenomes
+ 0002:8013AE2C       _langGetSilencePhenome
+ 0002:8013AE38       _langGetUWSilencePhenome
+ 0002:8013AE44       _langGetSingleWordGarbagePhenome
+ 0002:8013AE50       _langGetSentenceGarbagePhenome
+ 0002:8013AE5C       _langGetAnySpeechGarbagePhenome
+ 0002:8013AE68       _langGetNbrSpeechUnit
+ 0002:8013AE74       _langGetNbrWarpFactors
+ 0002:8013AE80       _langGetNbrSpeechUnitClass
+ 0002:8013AE8C       _langGetNbrTones
+ 0002:8013AE98       _langGetUserWordSpeechUnitClass
+ 0002:8013AEA4       _langGetNbrTransWord
+ 0002:8013AEB0       _langGetNbrPhenUserWordTraining
+ 0002:8013AEBC       _langGetRecogWTP
+ 0002:8013AEC8       _langGetSpellingWTP
+ 0002:8013AED4       _cdbGetCodeBookDim
+ 0002:8013AEDC       _cdbGetFirstCdbSize
+ 0002:8013AEE4       _cdbGetNbrInSecSearch
+ 0002:8013AEEC       _cdbGetSecondCdbSize
+ 0002:8013AEF4       _cdbGetCompStart
+ 0002:8013AEFC       _cdbGetNbrGastone
+ 0002:8013AF04       _langGetSilPhenome
+ 0002:8013AF14       _langGetpWarpFactors
+ 0002:8013AF20       _langGetpGastone
+ 0002:8013AF38       _langGetpErgodicStates
+ 0002:8013AF64       _langGetpErgodicPhenomes
+ 0002:8013AFAC       _langGetpErgodicPenalty
+ 0002:8013B010       _langGetpCodeBook
+ 0002:8013B1D0       _langGetpSpeechUnit
+ 0002:8013B6A0       _langIsNormalPhenome
+ 0002:8013B6C4       _langCheckBitField
+ 0002:8013B6D4       _transwGetpTransWordLex
+ 0002:8013B6DC       _transwGetpBeginOfTransWords
+ 0002:8013B6F0       _transwGetSize
+ 0002:8013B724       _cdbGetCodeBookSize
+ 0002:8013B7B0       _cdbGetpFirstCdb
+ 0002:8013B7B8       _cdbGetpIndexInSecCdb
+ 0002:8013B7D8       _cdbGetpSecondCdb
+ 0002:8013B808       _cdbGetpProbMatrix
+ 0002:8013B850       _cdbGetpSmoothMatrix
+ 0002:8013B8D4       _cdbGetProbMatrixSize
+ 0002:8013B904       _cdbGetSmoothMatrixSize
+ 0002:8013B914       _exevGetLeading_NBS_penalty
+ 0002:8013B91C       _exevGetTrailing_NBS_penalty
+ 0002:8013B924       _exevGetRejection_NBS_penalty
+ 0002:8013B92C       _exevGetRejection_NBS_path_penalty
+ 0002:8013B934       _exevGetExtraEventSilencePhenome
+ 0002:8013B93C       _exevGetNbrItemsInLexicon
+ 0002:8013B944       _exevGetNbrOfPronunciations
+ 0002:8013B94C       _exevGetLeading_NBS_WordIndex
+ 0002:8013B954       _exevGetTrailing_NBS_WordIndex
+ 0002:8013B95C       _exevGetRejection_NBS_WordIndex
+ 0002:8013B964       _exevGetpBeginOfItems
+ 0002:8013B96C       _exevGetpBeginOfWords
+ 0002:8013B98C       _exevGetpBeginOfProns
+ 0002:8013B994       _GetNbrStatesInPhenome
+ 0002:8013B9AC       _ConvPhenomesToStates
+ 0002:8013B9D4       FillLanguageVirtualTable
+ 0002:8013BA00       qQueueControl
+ 0002:8013BD20       qQueueJumpBack
+ 0002:8013BE2C       qQueueJumpBackOne
+ 0002:8013BFDC       qQueueInitEx
+ 0002:8013C0EC       qQueueReDimension
+ 0002:8013C1B0       qUpdateReadPtrsAndIncNbrOfEnqueues
+ 0002:8013C2EC       qEnQueue
+ 0002:8013C450       qEnQueueOne
+ 0002:8013C558       qDeQueueOne
+ 0002:8013C5A8       qFreeUnusedElemements
+ 0002:8013C6CC       qCheckDeQueueOne
+ 0002:8013C7B4       qCheckInputQueues
+ 0002:8013C8B4       qQueueReset
+ 0002:8013C980       qQueueNbrElements
+ 0002:8013C9A0       qQueueConstruct
+ 0002:8013CA2C       SetAndControlQSizes
+ 0002:8013CB84       ConnectInQtoBlock
+ 0002:8013D380       ConstructArchitecture
+ 0002:8013D7E8       DestructArchitecture
+ 0002:8013DA00       tosGetQueuePtr
+ 0002:8013DA34       tosCallControlFunc
+ 0002:8013DBD4       tosInit
+ 0002:8013DCB4       tosDestruct
+ 0002:8013DCFC       blockFreeUnusedElementsInputQueues
+ 0002:8013DD60       tosRun
+ 0002:8013DEA4       _tosControl
+ 0002:8013E084       _tosErrorLog
+ 0002:8013E0EC       _tosWarningLog
+ 0002:8013E154       _tosGetProfileFloat
+ 0002:8013E20C       _tosGetProfileU32
+ 0002:8013E2CC       tosBaseBlockConstruct
+ 0002:8013E3B4       tosBaseBlockDestruct
+ 0002:8013E450       tosBaseBlockStopInputQueues
+ 0002:8013E4F0       tosBaseBlockStartInputQueues
+ 0002:8013E590       DisabledProcess
+ 0002:8013E594       tosBaseBlockControl
+ 0002:8013E7BC       fastallo_AllocateMemoryFromChunk
+ 0002:8013E8D0       fastallo_Init
+ 0002:8013E924       fastallo_Terminate
+ 0002:8013E9A8       critsec_Enter
+ 0002:8013E9B0       critsec_Leave
+ 0002:8013E9B8       safeh_HandleCheck
+ 0002:8013EA54       safeh_HandlesEqual
+ 0002:8013EA8C       osspi_IsGoodReadPtr
+ 0002:8013EAA8       osspi_IsGoodWritePtr
+ 0002:8013EAC4       InitRsrcFunction
+ 0002:8013EBDC       rsrc_Open
+ 0002:8013EE1C       HuSetVecF
+ 0002:8013EE2C       HuSubVecF
  0002:8013EE60       msmSysServer
  0002:8013EECC       msmSysSetAuxParam
  0002:8013F148       msmSysLoadBaseGroup
@@ -2008,6 +2813,7 @@
  0002:8013FFC4       msmSysLoadGroupBase
  0002:80140288       msmSysLoadGroupSub
  0002:801406B4       msmSysLoadGroup
+ 0002:80140C1C       msmSysSetGroupLoadMode
  0002:80140C30       msmSysCheckInit
  0002:80140C50       msmSysInit
  0002:801410E0       msmMemFree
@@ -2017,9 +2823,16 @@
  0002:80141340       msmFioRead
  0002:80141374       msmFioOpen
  0002:801413A0       msmFioInit
+ 0002:80141400       msmMusPauseSub
  0002:80141884       msmMusFdoutEnd
+ 0002:80141888       msmMusPeriodicProc
+ 0002:80141A54       msmMusGetMidiCtrl
  0002:80141AF0       msmMusGetNumPlay
+ 0002:80141B28       msmMusGetStatus
+ 0002:80141B94       msmMusPauseAll
  0002:80141C1C       msmMusStopAll
+ 0002:80141D50       msmMusStop
+ 0002:80141E1C       msmMusPlay
  0002:80142144       msmMusInit
  0002:801422B8       msmSeFade
  0002:80142508       msmSePauseSub
@@ -2037,14 +2850,20 @@
  0002:80143264       msmSeStop
  0002:801437E0       msmSeInit
  0002:80143910       msmStreamGetStatus
+ 0002:80143D94       msmStreamPauseAll
+ 0002:80143E10       msmStreamPause
  0002:80143F48       msmStreamStopAll
  0002:80143FFC       msmStreamStop
  0002:80144260       msmStreamPlay
+ 0002:8014432C       msmStreamPeriodicProc
  0002:80144420       msmStreamSetOutputMode
  0002:80144534       msmStreamAmemFree
  0002:8014459C       msmStreamAmemAlloc
  0002:801446A8       msmStreamInit
+ 0002:80144950       msmStreamPauseOff
  0002:80144C20       msmStreamPauseOn
+ 0002:80144DCC       msmStreamPauseFade
+ 0002:801450B4       msmStreamFade
  0002:8014543C       msmStreamStopSub
  0002:801455C0       msmStreamSetParamSub
  0002:801456A0       msmStreamPackStartStereo
@@ -2057,11 +2876,12 @@
  0002:80146800       msmStreamUpdateFunc
  0002:8014697C       msmStreamSlotInit
  0002:80147948       def_8014739C
- 0002:80147C10       inflate
  0002:80148ADC       def_80147CA0
  0002:801496FC       def_80148D64
  0002:80149928       huft_build
+ 0002:80149FE8       inflate_trees_bits
  0002:8014A0F4       inflate_trees_dynamic
+ 0002:8014A30C       inflate_codes
  0002:801533E0       nullsub_18
  0002:80153D94       get_player_data_by_num
  0002:80154488       def_80154218
@@ -2103,6 +2923,8 @@
  0002:80213A08       j_OSInitSemaphore
  0002:80213A10       j_OSSignalSemaphore
  0002:80213A14       j_OSWaitSemaphore
+ 0002:80213A18       j_log
+ 0002:80213A1C       j_fmod
  0002:80213A20       j_GXWaitDrawDone
  0002:80213A38       j_GXSetIndTexMtx
  0002:80213A3C       j_GXSetTevIndWarp
@@ -2163,6 +2985,12 @@
  0008:80216CC8       aErrorNoBufferA
  0008:80216D70       aMetrotrkSetToG
  0008:80216D94       aMetrotrkSetToA
+ 0008:80216DB8       TranslateParamTable
+ 0008:80216E18       g_APIRecogCallBacks
+ 0008:80219050       LabelBlockIDs
+ 0008:8021A308       _ContextV2VirtualTable
+ 0008:8021A360       _LangVirtualTable
+ 0008:8021A4A0       g_NullResource
  0008:8021A4B8       order
  0008:8021A508       inflate_copyright
  0008:8021A538       cplens
@@ -3255,12 +4083,14 @@
  0009:80245954       jpt_800F4564
  0009:802459D8       jpt_800F4A20
  0009:80245AB8       jpt_800F47B8
- 0009:80245B00       funcs_800FA38C
+ 0009:80245B00       gTRKDispatchTable
  0009:80245B88       jpt_800FBAB0
  0009:80245BA4       jpt_800FBEC0
  0009:80245BCC       gTRKExceptionStatus
  0009:80245BF0       TRK_ISR_OFFSETS
  0009:80245C30       gDBCommTable
+ 0009:80245C90       AsrSpiSignalCallBacks
+ 0009:80245CA8       gGSAPI
  0009:80245D3C       aAsrspiD02d04d
  0009:80245D58       jpt_80106DF0
  0009:80245DF8       jpt_80107040
@@ -3371,13 +4201,16 @@
  0003:802607A0       reflectAnim
  0003:802607C4       Hu3DProjection
  0003:80260A24       Hu3DShadowBuf
+ 0003:802613E4       FogData
  0003:802613F4       Hu3DCameraMtx
  0003:80261424       Hu3DCameraMtxXPose
  0003:80261454       Hu3DGlobalLight
  0003:80261674       Hu3DLocalLight
  0003:802624B8       Hu3DMotion
+ 0003:80264B78       parManProc
  0003:80265300       perf
  0003:80265650       omovlhis
+ 0003:80265B70       GwSystem
  0003:80266EE0       omDLLinfoTbl
  0003:80267578       esprite
  0003:80267BB8       espanim
@@ -3388,8 +4221,11 @@
  0003:8026E720       arqReq
  0003:8026E740       ARQueBuf
  0003:8026E9C0       preLoadBuf
+ 0003:8026F950       ColisionIdx
+ 0003:8026FB54       HitFace
  0003:8026FD00       SimpleControl
  0003:802703A0       WorkBuffer
+ 0003:80270B70       _Sys_Flag
  0003:80270B80       curFileInfo
  0003:80270BA0       saveBuf
  0003:80285170       ToeMessageQueue
@@ -3466,8 +4302,11 @@
  0003:802AF3D0       aramStreamBuffers
  0003:802AF7E0       dsp_task
  0003:802B1840       fragmentinfo
+ 0003:802B1CA0       gTRKEventQueue
+ 0003:802B1CD0       gTRKMsgBufs
  0003:802B3684       gTRKFramingState
  0003:802B3698       gTRKDispatchTableSize
+ 0003:802B36A0       IsTRKConnected
  0003:802B36A8       TRK_saved_exceptionID
  0003:802B36AC       gTRKState
  0003:802B3750       gTRKCPUState
@@ -3479,6 +4318,10 @@
  0003:802B3C40       gReadCount
  0003:802B4D54       gWriteBuf
  0003:802B5E60       bUseSerialIO
+ 0003:802B5E68       __MICBlock
+ 0003:802B5F68       __timeout
+ 0003:802B5FB8       __M2SBlock
+ 0003:802B6208       __M2SDebug
  0003:802B6218       sys
  0003:802B6728       mem
  0003:802B6758       fio
@@ -3581,6 +4424,7 @@
  0003:802BFB50       std::thandler(void)
  0003:802BFB54       std::uhandler(void)
  0003:802BFB58       fragmentID
+ 0003:802BFB78       __float_nan
  0003:802BFB99       a14
  0003:802BFBC0       aEye1
  0003:802BFBC5       aEye2
@@ -3704,6 +4548,10 @@
  0003:802C0170       polyTypeBak
  0003:802C0174       materialBak
  0003:802C0178       MTXIdx
+ 0003:802C0180       modelKillAllF
+ 0003:802C0188       Hu3DAmbColB
+ 0003:802C018C       Hu3DAmbColG
+ 0003:802C0190       Hu3DAmbColR
  0003:802C019A       NoSyncF
  0003:802C019E       Hu3DPauseF
  0003:802C01A0       Hu3DMallocNo
@@ -3714,6 +4562,7 @@
  0003:802C01B4       Hu3DShadowF
  0003:802C01B8       Hu3DShadowCamBit
  0003:802C01BA       shadowNum
+ 0003:802C01C0       reflectMapNo
  0003:802C01C2       BGColor
  0003:802C01C8       Hu3DData
  0003:802C0230       omdispinfo
@@ -3728,13 +4577,20 @@
  0003:802C0258       omnextovl
  0003:802C025C       omwatchproc
  0003:802C0260       omSysKeyObj
+ 0003:802C0298       frand_seed
  0003:802C02A0       fadeStat
+ 0003:802C02A4       musicOffF
  0003:802C02A8       Snd3DDistOffset
  0003:802C02AC       Snd3DSpeedOffset
  0003:802C02B0       Snd3DStartDisOffset
  0003:802C02B4       Snd3DFrontSurDisOffset
  0003:802C02B8       Snd3DBackSurDisOffset
+ 0003:802C02BC       HuAuxBVol
+ 0003:802C02BD       HuAuxAVol
  0003:802C02CA       Hu3DAudVol
+ 0003:802C02D0       Meshno
+ 0003:802C02D4       Meshcnt
+ 0003:802C02E4       CurHsf
  0003:802C0328       gid
  0003:802C0340       fontAnim
  0003:802C0346       comKeyIdx
@@ -3755,6 +4611,14 @@
  0003:802C0390       arqIdx
  0003:802C0394       arqCnt
  0003:802C0398       ARBase
+ 0003:802C03B0       ColisionCount
+ 0003:802C03B4       topvtx
+ 0003:802C03BC       HitFaceCount
+ 0003:802C03D4       OldAIDCallback
+ 0003:802C03D8       AudioSystem
+ 0003:802C03E8       CurAudioBuffer
+ 0003:802C03EC       LastAudioBuffer
+ 0003:802C03F0       SoundBufferIndex
  0003:802C03F8       THPProc
  0003:802C03FC       THPStart
  0003:802C0400       THPFrame
@@ -3763,6 +4627,7 @@
  0003:802C0408       decodeThread
  0003:802C040C       decodeStackP
  0003:802C0450       curSlotNo
+ 0003:802C0452       curBoxNo
  0003:802C0468       H_ResetReady
  0003:802C046C       SR_RestartChk
  0003:802C0474       SR_ExecReset
@@ -4020,6 +4885,12 @@
  0003:802C0CA4       RecvDataLeng
  0003:802C0CA8       pEXIInputFlag
  0003:802C0CAC       EXIInputFlag
+ 0003:802C0CB0       __init
+ 0003:802C0CBC       __open
+ 0003:802C0CC0       __M2SChannel
+ 0003:802C0CC4       __M2SBuffer
+ 0003:802C0CC8       __M2SMode
+ 0003:802C0CCC       __M2SPrerecordingSamples
  0003:802C1F88       gx
 
 Program entry point at 0001:00000054
