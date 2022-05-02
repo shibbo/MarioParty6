@@ -44,6 +44,7 @@
  0002:80006FC0       HuPadRumbleGet
  0002:80006FC8       HuDVDReadAsyncCallBack
  0002:80006FD4       HuDvdDataReadWait
+ 0002:800071F8       HuDvdDataRead
  0002:80007278       HuDvdDataReadMulti
  0002:80007358       HuDvdDataReadDirect
  0002:800073DC       HuDvdDataFastRead
@@ -64,9 +65,16 @@
  0002:80008270       HuDataGetAsyncStat
  0002:800082D0       HuDataRead
  0002:80008634       HuDataReadNum
+ 0002:800089EC       HuDataSelHeapRead
  0002:80008DD0       HuDataSelHeapReadNum
+ 0002:80009210       HuDataReadMulti
+ 0002:80009240       HuDataReadMultiSub
+ 0002:8000963C       HuDataGetSize
+ 0002:80009740       HuDataClose
+ 0002:80009778       HuDataCloseMulti
  0002:800097F4       HuDataDirClose
- 0002:800098E4       HuDataDirCloseNum
+ 0002:80009A30       HuDataDirCloseNum
+ 0002:80009B04       HuDataReadNumHeapShortForce
  0002:80009FAC       HuDecodeSlide
  0002:8000A1AC       HuDecodeFslide
  0002:8000A384       HuDecodeData
@@ -573,6 +581,7 @@
  0002:80050AE0       HuWinDrawNoSet
  0002:80050B34       HuWinScissorSet
  0002:80050B98       HuWinPriSet
+ 0002:80050F98       HuWinMesRead
  0002:800514A4       def_8005149C
  0002:80051640       def_80051638
  0002:800518CC       def_800518B8
@@ -2397,6 +2406,7 @@
  0002:80107E4C       asrspi_SetParamList
  0002:801085A4       asrspi_Start
  0002:801087F0       asrspi_Stop
+ 0002:80108978       intAcquisition
  0002:801089CC       def_801089A8
  0002:80108BA8       asrspi_Acquisition
  0002:80108D48       asrspi_ExportSessionData
@@ -2445,6 +2455,8 @@
  0002:80113AC8       casrCreateResult
  0002:80114768       casrFreeResult
  0002:8011480C       cbTSDetected
+ 0002:80114880       cbTSAfterStartDetected
+ 0002:80114900       cbStartDetected
  0002:80114970       cbTOSRecognised
  0002:801149F0       cbIsoWordRecognised
  0002:80114EA0       cbSpellRecognised
@@ -2457,6 +2469,8 @@
  0002:801154CC       casrGetLastError
  0002:80115520       casrOpen
  0002:80115720       casrGetSessionData
+ 0002:80115840       casrClose
+ 0002:801159C0       casrStart
  0002:80115BBC       casrEnableLabelInQueue
  0002:80115C28       casrReadLabelInQueue
  0002:80115D2C       casrStop
@@ -2470,6 +2484,8 @@
  0002:801164A0       def_8011649C
  0002:80116C64       def_801164D8
  0002:80116D30       casrGetState
+ 0002:80116D9C       casrGetSignalLevel
+ 0002:80116E0C       casrGetSNR
  0002:80116EBC       casrImportData
  0002:80116F20       casrExportData
  0002:80117028       casrActivateData
@@ -2488,7 +2504,14 @@
  0002:80118E40       casrInitSegmentation
  0002:80118F2C       casrGetSegmStart
  0002:80118F44       casrStoreSegmentation
+ 0002:80118FE4       TrainSmoothCounts
+ 0002:8011940C       TrainProbsFromCounts
+ 0002:80119748       TrainCountsFromAcq
  0002:80119834       TrainInit
+ 0002:80119A48       CalcEntropy4bit
+ 0002:80119CD0       CalcEntropyMerged
+ 0002:80119F18       CalcEntropyMerged4bit
+ 0002:8011A3A4       TrainSelectPhenom
  0002:8011A748       TrainModels
  0002:8011A82C       userwordAcknowledge
  0002:8011A9D8       cbCancelUserWordTraining
@@ -2515,6 +2538,39 @@
  0002:8011CA28       InitDelayBlock
  0002:8011CB14       ConstructDelayBlock
  0002:8011CB58       AllocateBacktrace
+ 0002:8011CEF8       InitViterbi
+ 0002:8011D090       InitDpGenUw
+ 0002:8011D1B8       SendResultUserWords
+ 0002:8011D41C       MakeUserWordsActiveDist
+ 0002:8011D42C       DynProgUserWords
+ 0002:8011D9E8       IdleDpGenUwProcess
+ 0002:8011D9EC       DpGenUwProcess
+ 0002:8011DB4C       ControlDpGenUw
+ 0002:8011DE2C       ConstructDpGenUw
+ 0002:8011EB48       nullsub_25
+ 0002:80122DF4       CollectDummyMemory
+ 0002:80122FE4       InitViterbi_2
+ 0002:8012327C       ChangeMenuIndexedSyntax
+ 0002:80123318       InitNBestDynProgProcess
+ 0002:80123410       InitDynprogContext_0
+ 0002:80123680       ExtendBacktraceStack
+ 0002:80123728       FreeDynprog_0
+ 0002:80123814       CleanUpParBTProc
+ 0002:80123AC8       DynProgAccNBestNoOptSil
+ 0002:80124CA0       DynProgAccNBestOptSil
+ 0002:80126778       CopyParBT
+ 0002:801268F4       BestBTAhead
+ 0002:80126950       BestMinBTAhead
+ 0002:801269AC       BacktraceWordsParBT
+ 0002:80126E4C       ScoreCompare_0
+ 0002:80126E80       FindBestBacktraces
+ 0002:80126FDC       FindBestRecognised
+ 0002:80127248       CheckTSCondition_1
+ 0002:801272E0       ExpandGarbageArrays_0
+ 0002:80127404       IdleProcess_0
+ 0002:80127408       NBestDynProgProcess
+ 0002:8012767C       ControlNBestDynProgProcess
+ 0002:80127E80       ConstructNBestDynProg
  0002:80127EC4       Actual_DP
  0002:80128064       BackTracking
  0002:801282FC       Output
@@ -2528,6 +2584,7 @@
  0002:80129440       ConstructPitchDP
  0002:80129484       ProcessPitchWindow
  0002:801295CC       ControlPitchWindow
+ 0002:801296C0       CreateWindow
  0002:8012982C       InitPitchWindow
  0002:80129A04       ConstructPitchWindow
  0002:80129A48       ProcessStacker
@@ -2540,9 +2597,33 @@
  0002:80129FE0       ConstructUndersampler
  0002:8012A024       Reset_0
  0002:8012A12C       AcneGetSession
+ 0002:8012A1FC       AcnePutSession
+ 0002:8012A2CC       NormalizeAndEnQ
+ 0002:8012A43C       ProcessAcne
+ 0002:8012A8B4       ControlAcne
  0002:8012A9F0       InitAcne
+ 0002:8012AC04       ConstructAcne
+ 0002:8012AC48       ProcessDCTLift
+ 0002:8012AE2C       ControlDCTLift
+ 0002:8012AE8C       InitDCTLift
+ 0002:8012B088       ConstructDCTLift
+ 0002:8012B0CC       GenderGetSession
+ 0002:8012B134       GenderPutSession
+ 0002:8012B19C       LoadCodeBook
+ 0002:8012B30C       GenderFixedGender
+ 0002:8012B3F4       ControlGender
+ 0002:8012B644       ResetGender
+ 0002:8012B6BC       GenderDataCompute
+ 0002:8012B948       ReadFrame
+ 0002:8012BA28       GenderSelection
+ 0002:8012BBBC       InitGender
+ 0002:8012BD98       ProcessGender
+ 0002:8012C130       ConstructGender
+ 0002:8012C174       HLnOnePlusExpHFloat
+ 0002:8012C204       LogAdd
  0002:8012C33C       ProcessMel
  0002:8012C4F4       ControlMel
+ 0002:8012C64C       MelInitBands
  0002:8012CB50       InitMel
  0002:8012CBBC       ConstructMel
  0002:8012CC00       mtxConstruct
@@ -2625,6 +2706,7 @@
  0002:8013675C       ControlPitchCombiner
  0002:8013685C       InitPitchCombiner
  0002:80136D3C       ConstructPitchCombiner
+ 0002:80136D80       PeakEnhancement
  0002:80137A20       ProcessSHS_VUV
  0002:80137CB0       ControlSHS_VUV
  0002:80137DBC       InitSHS_VUV
@@ -2747,6 +2829,7 @@
  0002:8013BA00       qQueueControl
  0002:8013BD20       qQueueJumpBack
  0002:8013BE2C       qQueueJumpBackOne
+ 0002:8013BEEC       qQueueInit
  0002:8013BFDC       qQueueInitEx
  0002:8013C0EC       qQueueReDimension
  0002:8013C1B0       qUpdateReadPtrsAndIncNbrOfEnqueues
@@ -2763,6 +2846,7 @@
  0002:8013CB84       ConnectInQtoBlock
  0002:8013D380       ConstructArchitecture
  0002:8013D7E8       DestructArchitecture
+ 0002:8013D90C       InitializeArchitecture
  0002:8013DA00       tosGetQueuePtr
  0002:8013DA34       tosCallControlFunc
  0002:8013DBD4       tosInit
@@ -4183,6 +4267,7 @@
  0003:8024C7B0       rumbleData
  0003:8024C840       ReadDataStat
  0003:8024FA40       textBuffer
+ 0003:8024FE80       HeapTbl
  0003:8024FE98       strline
  0003:80256698       pfStrBuf
  0003:80256798       processjmpbuf
@@ -4248,6 +4333,7 @@
  0003:80288260       CurrDiskID
  0003:80288280       DummyCommandBlock
  0003:802882B0       ResetAlarm
+ 0003:802882D8       WaitingQueue
  0003:802882F8       bb2Buf
  0003:80288338       block_18
  0003:80288368       regs
@@ -4508,6 +4594,8 @@
  0003:802C0040       DemoCurrentBuffer
  0003:802C0044       DemoFrameBuffer2
  0003:802C0048       DemoFrameBuffer1
+ 0003:802C004C       DefaultFifoObj
+ 0003:802C0050       DefaultFifo
  0003:802C0054       currentHeapHandle
  0003:802C0058       RenderMode
  0003:802C0064       strlinecnt
@@ -4596,6 +4684,7 @@
  0003:802C0346       comKeyIdx
  0003:802C034C       cancelCRF
  0003:802C0350       fontWidthP
+ 0003:802C0354       winAMemP
  0003:802C0358       winInsertF
  0003:802C0359       winTabSize
  0003:802C035A       winMaxHeight
@@ -4690,14 +4779,22 @@
  0003:802C06E8       ResetRequired
  0003:802C06EC       FirstTimeInBootrom
  0003:802C06F4       DVDInitialized
+ 0003:802C0700       FatalFunc
+ 0003:802C0708       status
  0003:802C070C       bb2
  0003:802C0710       idTmp
  0003:802C071C       retraceCount
+ 0003:802C0720       flushFlag
  0003:802C0724       retraceQueue
  0003:802C072C       PreCB
  0003:802C0730       PostCB
  0003:802C0734       PositionCallback
+ 0003:802C0750       shdwChangeMode
+ 0003:802C0758       shdwChanged
  0003:802C0760       CurrTiming
+ 0003:802C0764       CurrTvMode
+ 0003:802C0768       NextBufAddr
+ 0003:802C076C       CurrBufAddr
  0003:802C0770       FBSet
  0003:802C0780       rmode
  0003:802C0790       DemoStat
